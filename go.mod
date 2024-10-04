@@ -1,4 +1,4 @@
-module github.com/anes011/chargily-pay-go
+module github.com/Chargily/chargily-pay-go
 
 go 1.22.3
 
