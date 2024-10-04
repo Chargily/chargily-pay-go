@@ -32,6 +32,33 @@ func NewChargily(mode, apiKey string) (*Chargily, error) {
 	}, nil
 }
 
+func (c *Chargily) GetBalance() ([]byte, error) {
+	req, err := http.NewRequest("GET", fmt.Sprintf("%s/balance", c.baseUrl), nil)
+	if err != nil {
+		formattedError := fmt.Sprintf("Could not get balance, error: %s", err.Error())
+		return nil, errors.New(formattedError)
+	}
+
+	req.Header.Add("Content-Type", "application/json")
+	req.Header.Add("Authorization", fmt.Sprintf("Bearer %s", c.apiKey))
+
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		formattedError := fmt.Sprintf("Could not get balance, error: %s", err.Error())
+		return nil, errors.New(formattedError)
+	}
+	defer resp.Body.Close()
+
+	respBody, err := io.ReadAll(resp.Body)
+	if err != nil {
+		formattedError := fmt.Sprintf("Could not get balance, error: %s", err.Error())
+		return nil, errors.New(formattedError)
+	}
+
+	return respBody, nil
+}
+
 // Create customer method
 func (c *Chargily) CreateCustomer(customerRequest interface{}) ([]byte, error) {
 	requestData, err := json.Marshal(customerRequest)

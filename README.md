@@ -3,7 +3,179 @@
 
 Thank you for your interest in Go Package of Chargily Pay™, an open source project by Chargily, a leading fintech company in Algeria specializing in payment solutions and  e-commerce facilitating, this Package is providing the easiest and free way to integrate e-payment API through widespread payment methods in Algeria such as EDAHABIA (Algerie Post) and CIB (SATIM) into your digital projects.
 
-This repository is **EMPTY!** and is open to contributions from developers like you.
+This package is developed by **Anas Bahaa Eddine ([anes011](https://github.com/anes011))** and is open to contributions from developers like you.
+
+## Installation
+```bash
+go get github.com/Chargily/chargily-pay-go
+```
+
+## Usage
+```go
+package main
+
+import "github.com/Chargily/chargily-pay-go"
+
+func main() {
+    // Initialize chargily client
+    chargilypaygo.NewChargily("<MODE>", "<API-KEY>")
+
+    // Example
+    client, err := chargilypaygo.NewChargily("test", "test_sk_123456789abcdefg")
+    if err != nil {
+        log.Fatalf("Error initializing chargily client, err: %s", err.Error())
+    }
+
+    // Get Balance
+    resp, err := client.GetBalance()
+    if err != nil {
+        log.Fatalf("Could not get balance, err: %s", err.Error())
+    }
+
+    fmt.Println(string(resp))
+
+    // Create Customer
+    customerRequest := map[string]any{
+        "name": "Customer Example",
+        "email": "customer@example.com",
+        "phone": "+213 123 456 789",
+        "address": map[string]any{
+            "country": "Algeria",
+            "state": "Algiers"
+        },
+    }
+
+    resp, err := client.CreateCustomer(customerRequest)
+    if err != nil {
+        log.Fatalf("Could not create customer, err: %s", err.Error())
+    }
+
+    fmt.Println(string(resp))
+
+    // Update Customer
+    customerRequest := map[string]any{
+        "name": "Updated Customer Example",
+        "email": "customer@example.com",
+        "phone": "+213 123 456 789",
+        "address": map[string]any{
+            "country": "Algeria",
+            "state": "Algiers"
+        },
+    }
+
+    resp, err := client.UpdateCustomer("<CUSTOMER_ID>", customerRequest)
+    if err != nil {
+        log.Fatalf("Could not update customer, err: %s", err.Error())
+    }
+
+    fmt.Println(string(resp))
+    
+    // Retrieve a Customer
+    resp, err := client.RetrieveCustomer("<CUSTOMER_ID>")
+    if err != nil {
+        log.Fatalf("Could not retrieve customer, err: %s", err.Error())
+    }
+
+    fmt.Println(string(resp))
+    
+    // List all Customers
+    resp, err := client.ListCustomers("<QUANTITY>")
+    if err != nil {
+        log.Fatalf("Could not list customers, err: %s", err.Error())
+    }
+
+    fmt.Println(string(resp))
+    
+    // Delete a Customer
+    resp, err := client.DeleteCustomer("<CUSTOMER_ID>")
+    if err != nil {
+        log.Fatalf("Could not delete customer, err: %s", err.Error())
+    }
+
+    fmt.Println(string(resp))
+
+    // Create a Product
+    productRequest := map[string]any{
+        "name": "Product Example",
+        "description": "This is a product",
+        "images": []string{"https://image.png", "https://image2.png"},
+    }
+
+    resp, err := client.CreateProduct(productRequest)
+    if err != nil {
+        log.Fatalf("Could not create product, err: %s", err.Error())
+    }
+
+    fmt.Println(string(resp))
+
+    // Create a Price
+    priceRequest := map[string]any{
+        "amount": 2000.56,
+        "currency": "dzd",
+        "product_id": "<PRODUCT_ID>",
+    }
+
+    resp, err := client.CreatePrice(priceRequest)
+    if err != nil {
+        log.Fatalf("Could not create price, err: %s", err.Error())
+    }
+
+    fmt.Println(string(resp))
+    
+    // Create a Checkout
+    checkoutRequest := map[string]any{
+        "amount": 2000.56,
+        "currency": "dzd",
+        "success_url": "https://success.com"
+    }
+
+    resp, err := client.CreateCheckout(checkoutRequest)
+    if err != nil {
+        log.Fatalf("Could not create checkout, err: %s", err.Error())
+    }
+
+    fmt.Println(string(resp))
+    
+    // Create a Payment Link
+    paymentLinkRequest := map[string]any{
+        "name": "any name",
+        "items": []map[string]any{
+            {
+                "price": "<PRICE_ID>",
+                "quantity": 1,
+            },
+        },
+    }
+
+    resp, err := client.CreatePaymentLink(paymentLinkRequest)
+    if err != nil {
+        log.Fatalf("Could not create payment link, err: %s", err.Error())
+    }
+
+    fmt.Println(string(resp))
+
+    // Access certain fields in the response
+    checkoutRequest := map[string]any{
+        "amount": 2000.56,
+        "currency": "dzd",
+        "success_url": "https://success.com"
+    }
+
+    resp, err := client.CreateCheckout(checkoutRequest)
+    if err != nil {
+        log.Fatalf("Could not create checkout, err: %s", err.Error())
+    }
+
+    data := map[string]any{}
+
+    err = json.Unmarshal(resp, &data)
+    if err != nil {
+        log.Fatalf("Error unmarshaling response: %s", err.Error())
+    }
+
+    fmt.Println(data["checkout_url"])
+}
+```
 
 ## About Chargily Pay™ packages
 
