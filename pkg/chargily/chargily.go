@@ -1,7 +1,5 @@
 package chargily
 
-import "time"
-
 // Wallet represents the balance details for a specific currency.
 type Wallet struct {
     Currency        string `json:"currency"`         // The currency of the wallet (e.g., "dzd", "usd", "eur")
@@ -28,6 +26,7 @@ type Address struct {
 }
 
 
+
 // CreateCustomerParams represents the parameters for creating a customer.
 type CreateCustomerParams struct {
 	Name     			string            				`json:"name,omitempty"`     // The name of the customer.
@@ -48,8 +47,8 @@ type Customer struct {
     Phone                   string                       `json:"phone"`            // The phone number of the customer.
     Address                 *Address                     `json:"address"`          // The address of the customer.
     Metadata                map[string]any               `json:"metadata"`         // Additional info about the customer.
-    UpdatedAt               string                       `json:"updated_at"`       // The timestamp of when the customer was updates
-    CreatedAt               time.Time                    `json:"created_at"`       // The timestamp of when the customer was created.
+    UpdatedAt               int64                        `json:"updated_at"`       // The timestamp of when the customer was updates
+    CreatedAt               int64                        `json:"created_at"`       // The timestamp of when the customer was created.
 }
 
  
