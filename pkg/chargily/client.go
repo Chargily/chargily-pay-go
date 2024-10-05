@@ -62,6 +62,8 @@ func (c *Client) GetBalance() (*Balance, error) {
 
 
 //=========== CUSTOMERS AREA ==============//
+
+// create a new customer
 func (c *Client) CreateCustomer(customer *CreateCustomerParams) (*Customer, error){
 
     var customerResp Customer
@@ -73,4 +75,62 @@ func (c *Client) CreateCustomer(customer *CreateCustomerParams) (*Customer, erro
     }
     // Return the parsed customer object
     return &customerResp, nil
+}
+
+
+// update the customer
+func (c *Client) UpdateCustomer(customerID string, customer *CreateCustomerParams) (*Customer, error){
+
+    var customerResp Customer
+    //create new customer request with the customer data
+    err := c.rs.SendRequest("POST",  strings.Join([]string{c.endpoint, "customers/", customerID}, ""), customer, &customerResp)
+
+    if err!= nil {
+        return nil, err
+    }
+    // Return the parsed customer object
+    return &customerResp, nil
+}
+
+// retrieve a costumer
+func (c *Client) GetCustomer(customerID string,) (*Customer, error) {
+
+    var customer Customer
+    //send the request 
+    err := c.rs.SendRequest("GET",  strings.Join([]string{c.endpoint, "customers/",customerID }, ""), nil, &customer)
+
+    if err != nil {
+        return nil, err
+    }
+    // Return the parsed customer object
+    return &customer, nil
+}
+
+
+// delete a specific customer 
+func (c *Client) DeleteCustomer(customerID string) error {
+
+    //send the request 
+    err := c.rs.SendRequest("DELETE",  strings.Join([]string{c.endpoint, "customers/", customerID}, ""), nil, nil)
+
+    if err != nil {
+        return err
+    }
+    // Return nil if the request was successful
+    return nil
+}
+
+
+// retrieve all customers ( an array of customers )
+func (c *Client) GetAllCustomers() (*AllCustomersResponse, error) {
+
+    var customers AllCustomersResponse
+    //send the request 
+    err := c.rs.SendRequest("GET",  strings.Join([]string{c.endpoint, "customers"}, ""), nil, &customers)
+
+    if err != nil {
+        return nil, err
+    }
+    // Return the parsed customer object
+    return &customers, nil
 }

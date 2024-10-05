@@ -41,7 +41,7 @@ type CreateCustomerParams struct {
 type Customer struct {
     ID                      string                       `json:"id"`            // The unique identifier of the customer.
     Entity                  string                       `json:"entity"`          // The entity type (e.g., "customer")  
-    Livemode                bool                        `json:"livemode"`        // Indicates whether the mode is live.
+    Livemode                bool                         `json:"livemode"`        // Indicates whether the mode is live.
     Name                    string                       `json:"name"`             // The name of the customer.
     Email                   string                       `json:"email"`            // The email address of the customer.
     Phone                   string                       `json:"phone"`            // The phone number of the customer.
@@ -51,4 +51,18 @@ type Customer struct {
     CreatedAt               int64                        `json:"created_at"`       // The timestamp of when the customer was created.
 }
 
+
+type AllCustomersResponse struct {
+	Livemode                bool                         `json:"livemode"`
+	CurrentPage             int                          `json:"current_page"`
+	Data                    []Customer                   `json:"data"` 
+	FirstPageURL            string                       `json:"first_page_url"`
+	LastPage                int                          `json:"last_page"`
+	LastPageURL             string                       `json:"last_page_url"`
+	NextPageURL             *string                      `json:"next_page_url"` 
+	Path                    string                       `json:"path"`
+	PerPage                 int                          `json:"per_page"`
+	PrevPageURL             *string                      `json:"prev_page_url"` 
+	Total                   int                          `json:"total"`
+}
  
