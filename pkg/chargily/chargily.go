@@ -1,5 +1,7 @@
 package chargily
 
+import "time"
+
 // Wallet represents the balance details for a specific currency.
 type Wallet struct {
     Currency        string `json:"currency"`         // The currency of the wallet (e.g., "dzd", "usd", "eur")
@@ -14,3 +16,40 @@ type Balance struct {
     LiveMode bool     `json:"livemode"` // Indicates whether the mode is live
     Wallets  []Wallet `json:"wallets"`  // A slice of Wallet structs
 }
+
+
+// Address represents a customer's address.
+type Address struct {
+	Address     		string 						    `json:"address,omitempty"`
+	City       			string 							`json:"city,omitempty"`
+	State      			string 							`json:"state,omitempty"`
+	ZipCode    			string 							`json:"zip_code,omitempty"`
+	Country    			string 							`json:"country,omitempty"`
+}
+
+
+// CreateCustomerParams represents the parameters for creating a customer.
+type CreateCustomerParams struct {
+	Name     			string            				`json:"name,omitempty"`     // The name of the customer.
+	Email    			string            				`json:"email,omitempty"`    // The email address of the customer.
+	Phone    			string            				`json:"phone,omitempty"`    // The phone number of the customer.
+	Address  			*Address          				`json:"address,omitempty"`  // The address of the customer.
+	Metadata 			map[string]any    				`json:"metadata,omitempty"`  // Additional info about the customer.
+}
+
+
+// Customer represents a customer entity.
+type Customer struct {
+    ID                      string                       `json:"id"`            // The unique identifier of the customer.
+    Entity                  string                       `json:"entity"`          // The entity type (e.g., "customer")  
+    Livemode                bool                        `json:"livemode"`        // Indicates whether the mode is live.
+    Name                    string                       `json:"name"`             // The name of the customer.
+    Email                   string                       `json:"email"`            // The email address of the customer.
+    Phone                   string                       `json:"phone"`            // The phone number of the customer.
+    Address                 *Address                     `json:"address"`          // The address of the customer.
+    Metadata                map[string]any               `json:"metadata"`         // Additional info about the customer.
+    UpdatedAt               string                       `json:"updated_at"`       // The timestamp of when the customer was updates
+    CreatedAt               time.Time                    `json:"created_at"`       // The timestamp of when the customer was created.
+}
+
+ 
