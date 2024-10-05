@@ -58,3 +58,19 @@ func (c *Client) GetBalance() (*Balance, error) {
 	// Return the parsed balance object
 	return &balance, nil
 }
+
+
+
+//=========== CUSTOMERS AREA ==============//
+func (c *Client) CreateCustomer(customer *CreateCustomerParams) (*Customer, error){
+
+    var customerResp Customer
+    //create new customer request with the customer data
+    err := c.rs.SendRequest("POST",  strings.Join([]string{c.endpoint, "customers"}, ""), customer, &customerResp)
+
+    if err!= nil {
+        return nil, err
+    }
+    // Return the parsed customer object
+    return &customerResp, nil
+}
