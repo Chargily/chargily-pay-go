@@ -119,3 +119,18 @@ func (c *Client) DeleteCustomer(customerID string) error {
     // Return nil if the request was successful
     return nil
 }
+
+
+// retrieve all customers ( an array of customers )
+func (c *Client) GetAllCustomers() (*AllCustomersResponse, error) {
+
+    var customers AllCustomersResponse
+    //send the request 
+    err := c.rs.SendRequest("GET",  strings.Join([]string{c.endpoint, "customers"}, ""), nil, &customers)
+
+    if err != nil {
+        return nil, err
+    }
+    // Return the parsed customer object
+    return &customers, nil
+}
