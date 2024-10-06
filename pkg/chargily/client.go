@@ -410,3 +410,18 @@ func (c *Client) GetPaymentLink(paymentLinkId string) (*PaymentLink, error) {
     // Return the parsed payment link object
     return &link, nil
 }
+
+
+// retrieve all payment links
+func (c *Client) GetAllPaymentLinks() (*AllPaymentLinksResponse, error) {
+
+    var links AllPaymentLinksResponse
+    //send the request 
+    err := c.rs.SendRequest("GET",  strings.Join([]string{c.endpoint, "payment-links"}, ""), nil, &links)
+
+    if err!= nil {
+        return nil, err
+    }
+    // Return the parsed payment link object
+    return &links, nil
+}
