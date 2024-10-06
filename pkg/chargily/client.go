@@ -366,3 +366,62 @@ func (c *Client) ExpireCheckout(checkoutId string) (*Checkout ,error) {
     return &checkout ,nil
 }
 
+
+
+//================== PAYMENT LINKS =====================//
+
+//create payment link
+func (c *Client) CreatePaymentLink(paymentLink *CreatePaymentLinkParams) (*PaymentLink, error) {
+    var link PaymentLink
+    //send the request 
+    err := c.rs.SendRequest("POST",  strings.Join([]string{c.endpoint, "payment-links"}, ""), paymentLink, &link)
+
+    if err!= nil {
+        return nil, err
+    }
+    // Return the parsed payment link object
+    return &link, nil
+}
+
+// update a Payment Link
+func (c *Client) UpdatePaymentLink(paymentLinkId string, paymentLink *CreatePaymentLinkParams) (*PaymentLink, error) {
+    var link PaymentLink
+    //send the request 
+    err := c.rs.SendRequest("POST",  strings.Join([]string{c.endpoint, "payment-links/", paymentLinkId}, ""), paymentLink, &link)
+
+    if err!= nil {
+        return nil, err
+    }
+    // Return the parsed payment link object
+    return &link, nil
+}
+
+
+// retrieve a payment link
+func (c *Client) GetPaymentLink(paymentLinkId string) (*PaymentLink, error) {
+
+    var link PaymentLink
+    //send the request 
+    err := c.rs.SendRequest("GET",  strings.Join([]string{c.endpoint, "payment-links/", paymentLinkId }, ""), nil, &link)
+
+    if err!= nil {
+        return nil, err
+    }
+    // Return the parsed payment link object
+    return &link, nil
+}
+
+
+// retrieve all payment links
+func (c *Client) GetAllPaymentLinks() (*AllPaymentLinksResponse, error) {
+
+    var links AllPaymentLinksResponse
+    //send the request 
+    err := c.rs.SendRequest("GET",  strings.Join([]string{c.endpoint, "payment-links"}, ""), nil, &links)
+
+    if err!= nil {
+        return nil, err
+    }
+    // Return the parsed payment link object
+    return &links, nil
+}
