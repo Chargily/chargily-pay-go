@@ -213,3 +213,65 @@ func (c *Client) DeleteProduct(productId string) error {
     // Return nil if the request was successful
     return nil
 }
+
+
+//TODO: implement retrieve a product's prices 
+
+
+//============PRICES AREA ==============//
+//Create Price of a product for a specific product
+func (c *Client) CreatePrice(productPrice  * ProductPriceParams) (*ProductPrice, error) {
+    var price ProductPrice
+    //send the request 
+    err := c.rs.SendRequest("POST",  strings.Join([]string{c.endpoint, "prices"}, ""), productPrice, &price)
+
+    if err!= nil {
+        return nil, err
+    }
+    // Return the parsed product price object
+    return &price, nil
+} 
+
+
+// update the product price data (not the price itself as mentioned in the docs of Chargily) for a specific product
+func (c *Client) UpdatePrice(productId string, MetaDataToUpdate map[string]any ) (*ProductPrice, error) {
+    var price ProductPrice
+    //send the request 
+    err := c.rs.SendRequest("POST",  strings.Join([]string{c.endpoint, "prices/", productId}, ""), MetaDataToUpdate, &price)
+
+    if err!= nil {
+        return nil, err
+    }
+    // Return the parsed product price object
+    return &price, nil
+}
+
+
+// retrieve a price 
+func (c *Client) GetPrice(productId string) (*ProductPrice, error) {
+
+    var price ProductPrice
+    //send the request 
+    err := c.rs.SendRequest("GET",  strings.Join([]string{c.endpoint, "prices/", productId }, ""), nil, &price)
+
+    if err!= nil {
+        return nil, err
+    }
+    // Return the parsed product price object
+    return &price, nil
+}
+
+
+// retrieve a list of all prices available 
+func (c *Client) GetAllPrices() (*AllPricesResponse, error) {
+
+    var prices AllPricesResponse
+    //send the request 
+    err := c.rs.SendRequest("GET",  strings.Join([]string{c.endpoint, "prices"}, ""), nil, &prices)
+
+    if err!= nil {
+        return nil, err
+    }
+    // Return the parsed product price object
+    return &prices, nil
+}
