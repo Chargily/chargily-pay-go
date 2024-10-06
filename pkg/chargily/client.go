@@ -382,3 +382,18 @@ func (c *Client) CreatePaymentLink(paymentLink *CreatePaymentLinkParams) (*Payme
     // Return the parsed payment link object
     return &link, nil
 }
+
+// update a Payment Link
+func (c *Client) UpdatePaymentLink(paymentLinkId string, paymentLink *CreatePaymentLinkParams) (*PaymentLink, error) {
+    var link PaymentLink
+    //send the request 
+    err := c.rs.SendRequest("POST",  strings.Join([]string{c.endpoint, "payment-links/", paymentLinkId}, ""), paymentLink, &link)
+
+    if err!= nil {
+        return nil, err
+    }
+    // Return the parsed payment link object
+    return &link, nil
+}
+
+
