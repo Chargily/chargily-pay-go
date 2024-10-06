@@ -319,3 +319,18 @@ func (c *Client) GetCheckout(checkoutId string) (*Checkout, error) {
     // Return the parsed checkout object
     return &checkout, nil
 }
+
+
+// retrieve all checkouts
+func (c *Client) GetAllCheckouts() (*AllCheckoutsResponse, error) {
+
+    var checkouts AllCheckoutsResponse
+    //send the request 
+    err := c.rs.SendRequest("GET",  strings.Join([]string{c.endpoint, "checkouts"}, ""), nil, &checkouts)
+
+    if err!= nil {
+        return nil, err
+    }
+    // Return the parsed checkout object
+    return &checkouts, nil
+}
