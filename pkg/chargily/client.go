@@ -397,3 +397,16 @@ func (c *Client) UpdatePaymentLink(paymentLinkId string, paymentLink *CreatePaym
 }
 
 
+// retrieve a payment link
+func (c *Client) GetPaymentLink(paymentLinkId string) (*PaymentLink, error) {
+
+    var link PaymentLink
+    //send the request 
+    err := c.rs.SendRequest("GET",  strings.Join([]string{c.endpoint, "payment-links/", paymentLinkId }, ""), nil, &link)
+
+    if err!= nil {
+        return nil, err
+    }
+    // Return the parsed payment link object
+    return &link, nil
+}
