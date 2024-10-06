@@ -127,7 +127,6 @@ type ProductPrice struct {
 }
 
 
-
 type AllPricesResponse struct {
 	Livemode                bool                         `json:"livemode"`	      
 	CurrentPage             int                          `json:"current_page"`
@@ -224,4 +223,34 @@ type AllCheckoutsResponse struct {
 	PerPage                 int                          `json:"per_page"`
 	PrevPageURL             *string                      `json:"prev_page_url"` 
 	Total                   int                          `json:"total"`
+}
+
+
+type CheckoutItems struct {
+	ID         				string            		      `json:"id"`                    // The unique identifier of the checkout item.
+	Entity     				string            		      `json:"entity"`                // The entity type (e.g., "price").
+	Amount     				int64             		      `json:"amount"`                // The amount of the checkout item in cents.
+	Quantity   				int64             		      `json:"quantity"`              // The quantity of the checkout item.
+	Currency   				string            		      `json:"currency"`              // The currency of the checkout item (e.g., "dzd").
+	Metadata   				map[string]any    		      `json:"metadata,omitempty"`    // Optional metadata associated with the item.
+	CreatedAt  				int64             		      `json:"created_at"`            // The timestamp when the item was created.
+	UpdatedAt  				int64             		      `json:"updated_at"`            // The timestamp when the item was last updated.
+	ProductID  				string            		      `json:"product_id"`            // The unique identifier of the associated product.
+}
+
+
+
+// all checkout's Items 
+type AllCheckoutItems struct {
+	Livemode     		    bool                          `json:"livemode"`          // Indicates whether the checkout is in live mode.
+	CurrentPage  		    int                           `json:"current_page"`      // The current page of results.
+	Data         		    []CheckoutItems                `json:"data"`              // A list of checkout items on the current page.
+	FirstPageURL 		    string                        `json:"first_page_url"`    // The URL for the first page.
+	LastPage     		    int                           `json:"last_page"`         // The last available page.
+	LastPageURL  		    string                        `json:"last_page_url"`     // The URL for the last page.
+	NextPageURL  		    *string                       `json:"next_page_url"`     // The URL for the next page, null if there is none.
+	Path         		    string                        `json:"path"`              // The base path for the pagination.
+	PerPage      		    int                           `json:"per_page"`          // The number of items per page.
+	PrevPageURL  		    *string                       `json:"prev_page_url"`     // The URL for the previous page, null if there is none.
+	Total        		    int                           `json:"total"`             // The total number of checkout items.
 }
