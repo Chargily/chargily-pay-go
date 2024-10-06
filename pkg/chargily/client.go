@@ -287,3 +287,82 @@ func (c *Client) GetAllPrices() (*AllPricesResponse, error) {
     // Return the parsed product price object
     return &prices, nil
 }
+
+
+
+//============ CHECKOUT FUNCTIONALITIES =================// 
+
+//create a checkout 
+func (c *Client) CreateCheckout(checkout *CheckoutParams) (*Checkout, error) {
+    var checkoutResp Checkout
+    //send the request 
+    err := c.rs.SendRequest("POST",  strings.Join([]string{c.endpoint, "checkouts"}, ""), checkout, &checkoutResp)
+
+    if err!= nil {
+        return nil, err
+    }
+    // Return the parsed checkout object
+    return &checkoutResp, nil
+}
+
+
+// retrieve a checkout
+func (c *Client) GetCheckout(checkoutId string) (*Checkout, error) {
+
+    var checkout Checkout
+    //send the request 
+    err := c.rs.SendRequest("GET",  strings.Join([]string{c.endpoint, "checkouts/", checkoutId }, ""), nil, &checkout)
+
+    if err!= nil {
+        return nil, err
+    }
+    // Return the parsed checkout object
+    return &checkout, nil
+}
+
+
+// retrieve all checkouts
+func (c *Client) GetAllCheckouts() (*AllCheckoutsResponse, error) {
+
+    var checkouts AllCheckoutsResponse
+    //send the request 
+    err := c.rs.SendRequest("GET",  strings.Join([]string{c.endpoint, "checkouts"}, ""), nil, &checkouts)
+
+    if err!= nil {
+        return nil, err
+    }
+    // Return the parsed checkout object
+    return &checkouts, nil
+}
+
+
+
+// retrieve a checkout's items
+func (c *Client) GetCheckoutItems(checkoutId string) (*AllCheckoutItems, error) {
+
+    var items AllCheckoutItems
+    //send the request 
+    err := c.rs.SendRequest("GET",  strings.Join([]string{c.endpoint, "checkouts/", checkoutId, "/items"}, ""), nil, &items)
+
+    if err!= nil {
+        return nil, err
+    }
+    // Return the parsed checkout items object
+    return &items, nil
+}
+
+
+// expires a checkout 
+func (c *Client) ExpireCheckout(checkoutId string) (*Checkout ,error) {
+
+    //send the request 
+    var checkout Checkout
+    err := c.rs.SendRequest("POST",  strings.Join([]string{c.endpoint, "checkouts/", checkoutId, "/expire"}, ""), nil, &checkout)
+
+    if err!= nil {
+        return nil, err
+    }
+    // Return nil if the request was successful
+    return &checkout ,nil
+}
+

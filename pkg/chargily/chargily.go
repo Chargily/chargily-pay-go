@@ -127,7 +127,6 @@ type ProductPrice struct {
 }
 
 
-
 type AllPricesResponse struct {
 	Livemode                bool                         `json:"livemode"`	      
 	CurrentPage             int                          `json:"current_page"`
@@ -140,4 +139,118 @@ type AllPricesResponse struct {
 	PerPage                 int                          `json:"per_page"`
 	PrevPageURL             *string                      `json:"prev_page_url"` 
 	Total                   int                          `json:"total"`
+}
+
+
+
+
+//Checkouts structs 
+
+
+type Item struct {
+	Price                  string                       `json:"price"`           // The ID of the price to be added to the checkout.
+	Quantity               int                          `json:"quantity"`         // The quantity of the item.
+}
+
+// the checkout param to create a checkout
+type CheckoutParams struct {
+	Items                  []Item                        `json:"items"`           // The items to be added to the checkout.
+	Amount                  int                          `json:"amount"`           // The total amount to be charged in cents.
+	Currency                string                       `json:"currency"`         // The currency code (e.g., "dzd", "usd", "eur").
+	PaymentMethod           string                       `json:"payment_method"`    // The payment method (e.g., "card", "cash").
+	SuccessURL              string                       `json:"success_url"`      // The URL to redirect to after a successful checkout.
+	CustomerID              string                       `json:"customer_id,omitempty"`  // The ID of the customer to be associated with the checkout.
+	FailureURL              string                       `json:"failure_url,omitempty"`  // The URL to redirect to after a failed checkout.
+	WebhookEndpoint         string                       `json:"webhook_endpoint,omitempty"`  // The URL to send a webhook to after the checkout.
+	Description             string                       `json:"description,omitempty"`  // A description of the checkout.
+	Locale                  string                       `json:"locale,omitempty"`  // The locale (e.g., "en", "fr", "es").
+	ShippingAddress         string                       `json:"shipping_address,omitempty"`  // The shipping address to be associated with the checkout.
+	CollectShippingAddress  bool                         `json:"collect_shipping_address,omitempty"`  // Indicates whether the shipping address should be collected.
+	PercentageDiscount      int                          `json:"percentage_discount,omitempty"`  // The percentage discount to be applied to the checkout.
+	AmountDiscount          int                          `json:"amount_discount,omitempty"`  // The amount discount to be applied to the checkout in cents.
+	Metadata                map[string]any               `json:"metadata,omitempty"`  // Additional information about the checkout.
+}
+
+
+
+type Discount struct {
+	Type  					string            `json:"type"`   // The type of discount (e.g., "percentage", "fixed").
+	Value 					int               `json:"value"`  // The value of the discount.
+}
+
+// Checkout Object to be returned
+type Checkout struct {
+	ID                      string            `json:"id"`                          // The unique identifier of the checkout.
+	Entity                  string            `json:"entity"`                      // The entity type (e.g., "checkout").
+	Livemode                bool              `json:"livemode"`                    // Indicates whether the mode is live.
+	Amount                  int64             `json:"amount"`                      // The total amount to be charged in cents.
+	Currency                string            `json:"currency"`                    // The currency of the checkout (e.g., "dzd").
+	Fees                    int64             `json:"fees"`                        // The fees charged to the checkout.
+	FeesOnMerchant          int64             `json:"fees_on_merchant"`            // The fees charged to the merchant in cents.
+	FeesOnCustomer          int64             `json:"fees_on_customer"`            // The fees charged to the customer in cents.
+	PassFeesToCustomer      *bool             `json:"pass_fees_to_customer"`       // Indicates whether the fees should be passed to the customer. This can be null.
+	ChargilyPayFeesAllocation string           `json:"chargily_pay_fees_allocation"` // The allocation of fees to Chargily Pay.
+	Status                  string            `json:"status"`                      // The status of the checkout (e.g., "pending", "succeeded", "failed").
+	Locale                  string            `json:"locale"`                      // The locale (e.g., "en", "fr", "es").
+	Description             *string           `json:"description"`                 // A description of the checkout. This can be null.
+	Metadata                *map[string]any   `json:"metadata"`                    // Additional information about the checkout. This can be null.
+	SuccessURL              string            `json:"success_url"`                 // The URL to redirect to after a successful checkout.
+	FailureURL              string            `json:"failure_url"`                 // The URL to redirect to after a failed checkout.
+	WebhookEndpoint         *string           `json:"webhook_endpoint"`            // The URL to send a webhook to after the checkout. This can be null.
+	PaymentMethod           *string           `json:"payment_method"`              // The payment method (e.g., "card", "cash"). This can be null.
+	InvoiceID               *string           `json:"invoice_id"`                  // The ID of the invoice associated with the checkout. This can be null.
+	CustomerID              string            `json:"customer_id"`                 // The ID of the customer associated with the checkout.
+	PaymentLinkID           *string           `json:"payment_link_id"`             // The ID of the payment link associated with the checkout. This can be null.
+	CreatedAt               int64             `json:"created_at"`                  // The timestamp of when the checkout was created.
+	UpdatedAt               int64             `json:"updated_at"`                  // The timestamp of when the checkout was updated.
+	ShippingAddress         *string           `json:"shipping_address"`            // The shipping address to be associated with the checkout. This can be null.
+	CollectShippingAddress  bool              `json:"collect_shipping_address"`    // Indicates whether the shipping address should be collected.
+	Discount               	Discount		  `json:"discount"` // The discount applied to the checkout.
+	AmountWithoutDiscount   int64   		  `json:"amount_without_discount"`  // The amount without any discount.
+	CheckoutURL             string  		  `json:"checkout_url"`             // The URL to access the checkout page.
+}
+
+ 
+type AllCheckoutsResponse struct {
+	Livemode                bool                         `json:"livemode"`	      
+	CurrentPage             int                          `json:"current_page"`
+	Data                    []Checkout                   `json:"data"` 
+	FirstPageURL            string                       `json:"first_page_url"`
+	LastPage                int                          `json:"last_page"`
+	LastPageURL             string                       `json:"last_page_url"`
+	NextPageURL             *string                      `json:"next_page_url"` 
+	Path                    string                       `json:"path"`
+	PerPage                 int                          `json:"per_page"`
+	PrevPageURL             *string                      `json:"prev_page_url"` 
+	Total                   int                          `json:"total"`
+}
+
+
+type CheckoutItems struct {
+	ID         				string            		      `json:"id"`                    // The unique identifier of the checkout item.
+	Entity     				string            		      `json:"entity"`                // The entity type (e.g., "price").
+	Amount     				int64             		      `json:"amount"`                // The amount of the checkout item in cents.
+	Quantity   				int64             		      `json:"quantity"`              // The quantity of the checkout item.
+	Currency   				string            		      `json:"currency"`              // The currency of the checkout item (e.g., "dzd").
+	Metadata   				map[string]any    		      `json:"metadata,omitempty"`    // Optional metadata associated with the item.
+	CreatedAt  				int64             		      `json:"created_at"`            // The timestamp when the item was created.
+	UpdatedAt  				int64             		      `json:"updated_at"`            // The timestamp when the item was last updated.
+	ProductID  				string            		      `json:"product_id"`            // The unique identifier of the associated product.
+}
+
+
+
+// all checkout's Items 
+type AllCheckoutItems struct {
+	Livemode     		    bool                          `json:"livemode"`          // Indicates whether the checkout is in live mode.
+	CurrentPage  		    int                           `json:"current_page"`      // The current page of results.
+	Data         		    []CheckoutItems                `json:"data"`              // A list of checkout items on the current page.
+	FirstPageURL 		    string                        `json:"first_page_url"`    // The URL for the first page.
+	LastPage     		    int                           `json:"last_page"`         // The last available page.
+	LastPageURL  		    string                        `json:"last_page_url"`     // The URL for the last page.
+	NextPageURL  		    *string                       `json:"next_page_url"`     // The URL for the next page, null if there is none.
+	Path         		    string                        `json:"path"`              // The base path for the pagination.
+	PerPage      		    int                           `json:"per_page"`          // The number of items per page.
+	PrevPageURL  		    *string                       `json:"prev_page_url"`     // The URL for the previous page, null if there is none.
+	Total        		    int                           `json:"total"`             // The total number of checkout items.
 }
