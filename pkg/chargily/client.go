@@ -134,3 +134,23 @@ func (c *Client) GetAllCustomers() (*AllCustomersResponse, error) {
     // Return the parsed customer object
     return &customers, nil
 }
+
+
+
+
+//========= PRODUCTS AREA ===========//
+///////////////////////////////////////
+
+//create a new product
+func (c *Client) CreateProduct(product *CreateProductParams) (*Product, error){
+
+    var productResp Product
+    //create new product request with the product data
+    err := c.rs.SendRequest("POST",  strings.Join([]string{c.endpoint, "products"}, ""), product, &productResp)
+
+    if err!= nil {
+        return nil, err
+    }
+    // Return the parsed product object
+    return &productResp, nil
+}
