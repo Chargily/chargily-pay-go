@@ -254,3 +254,41 @@ type AllCheckoutItems struct {
 	PrevPageURL  		    *string                       `json:"prev_page_url"`     // The URL for the previous page, null if there is none.
 	Total        		    int                           `json:"total"`             // The total number of checkout items.
 }
+
+
+
+// Payment Links 
+
+
+type PaymentLink struct {
+	ID                     string  						  `json:"id"`                          // The unique identifier of the payment link.
+	Entity                 string  						  `json:"entity"`                      // The entity type (e.g., "payment_link").
+	Livemode               bool    						  `json:"livemode"`                    // Indicates whether the mode is live.
+	Name                   string  						  `json:"name"`                        // The name or description of the payment link.
+	Active                 int     						  `json:"active"`                      // Indicates if the payment link is active (1) or inactive (0).
+	AfterCompletionMessage string  						  `json:"after_completion_message"`    // A message displayed to the user after payment is completed.
+	Locale                 string  						  `json:"locale"`                      // The locale (e.g., "ar", "en").
+	PassFeesToCustomer      bool   						   `json:"pass_fees_to_customer"`      // Indicates whether the fees are passed to the customer.
+	Metadata                map[string]any  						   `json:"metadata"`                   // Additional metadata associated with the payment link.
+	CreatedAt              int64   						  `json:"created_at"`                  // The timestamp when the payment link was created.
+	UpdatedAt              int64   						  `json:"updated_at"`                  // The timestamp when the payment link was last updated.
+	CollectShippingAddress  int    						   `json:"collect_shipping_address"`   // Indicates whether the shipping address should be collected (0 or 1).
+	URL                    string  						  `json:"url"`                         // The URL to access the payment link.
+}
+
+
+type Items struct {
+	Price              		string 						   `json:"price"`                		// The price of the item as a string.
+	Quantity           		int    						   `json:"quantity"`             		// The quantity of the item.
+	AdjustableQuantity 		bool   						   `json:"adjustable_quantity"`  		// Indicates if the quantity is adjustable by the customer.
+}
+
+type CreatePaymentLinkParams struct {
+	Name                   string            				`json:"name"`                         // The name associated with the order.
+	Items                  []Item            				`json:"items"`                        // A list of items in the order.
+	AfterCompletionMessage string            				`json:"after_completion_message"`     // A message displayed after order completion.
+	Locale                 string            				`json:"locale"`                       // The locale (e.g., "en", "fr").
+	PassFeesToCustomer     bool              				`json:"pass_fees_to_customer"`        // Indicates if fees are passed to the customer.
+	CollectShippingAddress bool              				`json:"collect_shipping_address"`     // Indicates whether to collect a shipping address.
+	Metadata               map[string]any    				`json:"metadata"`                     // Additional metadata for the order.
+}
