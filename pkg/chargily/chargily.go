@@ -65,4 +65,41 @@ type AllCustomersResponse struct {
 	PrevPageURL             *string                      `json:"prev_page_url"` 
 	Total                   int                          `json:"total"`
 }
+
+
+
+type CreateProductParams struct {
+    Name                   string                        `json:"name,omitempty"`     // The name of the product.
+    Description            string                        `json:"description,omitempty"`  // The description of the product.
+    Images                 []string                      `json:"images,omitempty"`    // The URLs of images of the product, up to 8.
+    Metadata               map[string]any                `json:"metadata,omitempty"`  // A set of key-value pairs for additional information about the product.
+}
+
+
+type Product struct {
+    ID                      string                       `json:"id"`            // The unique identifier of the product.
+    Entity                  string                       `json:"entity"`          // The entity type (e.g., "product").
+    Livemode                bool                         `json:"livemode"`        // Indicates whether the mode is live.
+    Name                    string                       `json:"name"`             // The name of the product.
+    Description             string                       `json:"description"`      // The description of the product.
+    Images                  []string                     `json:"images"`          // The URLs of images of the product, up to 8.
+    Metadata                map[string]any               `json:"metadata"`         // A set of key-value pairs for additional information about the product.
+    CreatedAt               int64                        `json:"created_at"`       // The timestamp of when the product was created.
+    UpdatedAt               int64                        `json:"updated_at"`       // The timestamp of when the product was updated.
+}
+
+
+type AllProductsResponse struct {
+	Livemode                bool                         `json:"livemode"`
+	CurrentPage             int                          `json:"current_page"`
+	Data                    []Product                    `json:"data"` 
+	FirstPageURL            string                       `json:"first_page_url"`
+	LastPage                int                          `json:"last_page"`
+	LastPageURL             string                       `json:"last_page_url"`
+	NextPageURL             *string                      `json:"next_page_url"` 
+	Path                    string                       `json:"path"`
+	PerPage                 int                          `json:"per_page"`
+	PrevPageURL             *string                      `json:"prev_page_url"` 
+	Total                   int                          `json:"total"`
+}
  

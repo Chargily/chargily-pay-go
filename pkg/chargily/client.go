@@ -93,7 +93,7 @@ func (c *Client) UpdateCustomer(customerID string, customer *CreateCustomerParam
 }
 
 // retrieve a costumer
-func (c *Client) GetCustomer(customerID string,) (*Customer, error) {
+func (c *Client) GetCustomer(customerID string) (*Customer, error) {
 
     var customer Customer
     //send the request 
@@ -133,4 +133,83 @@ func (c *Client) GetAllCustomers() (*AllCustomersResponse, error) {
     }
     // Return the parsed customer object
     return &customers, nil
+}
+
+
+
+
+//========= PRODUCTS AREA ===========//
+///////////////////////////////////////
+
+
+//create a new product
+func (c *Client) CreateProduct(product *CreateProductParams) (*Product, error){
+
+    var productResp Product
+    //create new product request with the product data
+    err := c.rs.SendRequest("POST",  strings.Join([]string{c.endpoint, "products"}, ""), product, &productResp)
+
+    if err!= nil {
+        return nil, err
+    }
+    // Return the parsed product object
+    return &productResp, nil
+}
+
+
+// Update the product with it's unique ID
+func (c *Client) UpdateProduct(productId string,product *CreateProductParams) (*Product, error){
+    var productResp Product
+    //create new product request with the product data
+    err := c.rs.SendRequest("POST",  strings.Join([]string{c.endpoint, "products/",productId}, ""), product, &productResp)
+
+    if err!= nil {
+        return nil, err
+    }
+    // Return the parsed product object
+    return &productResp, nil
+}
+
+
+//retrieve a product using its unique ID
+func (c *Client) GetProduct(productId string) (*Product, error) {
+
+    var product Product
+    //send the request 
+    err := c.rs.SendRequest("GET",  strings.Join([]string{c.endpoint, "products/", productId }, ""), nil, &product)
+
+    if err != nil {
+        return nil, err
+    }
+    // Return the parsed product object
+    return &product, nil
+}
+
+
+// retrieve all products 
+func (c *Client) GetAllProducts() (*AllProductsResponse, error) {
+
+    var products AllProductsResponse
+    //send the request 
+    err := c.rs.SendRequest("GET",  strings.Join([]string{c.endpoint, "products"}, ""), nil, &products)
+
+    if err!= nil {
+        return nil, err
+    }
+    // Return the parsed product object
+    return &products, nil
+}
+
+
+// delete a specific product
+func (c *Client) DeleteProduct(productId string) error {
+
+    //send the request 
+    err := c.rs.SendRequest("DELETE",  strings.Join([]string{c.endpoint, "products/", productId}, ""), nil, nil)
+
+    if err!= nil {
+        return err
+    }
+    // Return nil if the request was successful
+    return nil
 }
