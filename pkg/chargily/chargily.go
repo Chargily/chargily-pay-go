@@ -292,3 +292,18 @@ type CreatePaymentLinkParams struct {
 	CollectShippingAddress bool              				`json:"collect_shipping_address"`     // Indicates whether to collect a shipping address.
 	Metadata               map[string]any    				`json:"metadata"`                     // Additional metadata for the order.
 }
+
+
+type AllPaymentLinksResponse struct {
+	Livemode                bool                         `json:"livemode"`
+	CurrentPage             int                          `json:"current_page"`
+	Data                    []PaymentLink                `json:"data"` 
+	FirstPageURL            string                       `json:"first_page_url"`
+	LastPage                int                          `json:"last_page"`
+	LastPageURL             string                       `json:"last_page_url"`
+	NextPageURL             *string                      `json:"next_page_url"` 
+	Path                    string                       `json:"path"`
+	PerPage                 int                          `json:"per_page"`
+	PrevPageURL             *string                      `json:"prev_page_url"` 
+	Total                   int                          `json:"total"`
+}
