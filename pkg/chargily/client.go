@@ -215,7 +215,19 @@ func (c *Client) DeleteProduct(productId string) error {
 }
 
 
-//TODO: implement retrieve a product's prices 
+// Retrieve a products's prices using its ID 
+func (c *Client) GetProductPrices(productId string) (*AllPricesResponse, error) {
+
+    var prices AllPricesResponse
+    //send the request 
+    err := c.rs.SendRequest("GET",  strings.Join([]string{c.endpoint, "products/", productId, "/prices"}, ""), nil, &prices)
+
+    if err!= nil {
+        return nil, err
+    }
+    // Return the parsed product prices object
+    return &prices, nil
+}
 
 
 //============PRICES AREA ==============//
