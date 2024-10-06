@@ -103,3 +103,25 @@ type AllProductsResponse struct {
 	Total                   int                          `json:"total"`
 }
  
+
+
+// price operations related structs
+type ProductPriceParams struct {
+	Amount                  int64                        `json:"amount"`          // The price amount in cents.
+	Currency                string                       `json:"currency"`         // The currency code (e.g., "dzd", "usd", "eur").
+	ProductID               string                       `json:"product_id"`      // The ID of the product to which the price applies.
+	Metadata                 map[string]any              `json:"metadata,omitempty"`  // Additional information about the price.
+}
+
+
+type ProductPrice struct {
+	ID                      string                       `json:"id"`            // The unique identifier of the price.
+	Entity                  string                       `json:"entity"`          // The entity type (e.g., "price").
+	Livemode                bool                         `json:"livemode"`        // Indicates whether the mode is live.
+	Amount                  int64                        `json:"amount"`          // The price amount in cents.
+	Currency                string                       `json:"currency"`         // The currency code (e.g., "dzd", "usd", "eur").
+	ProductID               string                       `json:"product_id"`      // The ID of the product to which the price applies.
+	Metadata                map[string]any               `json:"metadata"`         // Additional information about the price.
+	CreatedAt               int64                        `json:"created_at"`       // The timestamp of when the price was created.
+	UpdatedAt               int64                        `json:"updated_at"`       // The timestamp of when the price was updated.
+}
