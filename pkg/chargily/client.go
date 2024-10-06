@@ -213,3 +213,21 @@ func (c *Client) DeleteProduct(productId string) error {
     // Return nil if the request was successful
     return nil
 }
+
+
+//TODO: implement retrieve a product's prices 
+
+
+//============PRICES AREA ==============//
+//Create Price of a product for a specific product
+func (c *Client) CreatePrice(productPrice  * ProductPriceParams) (*ProductPrice, error) {
+    var price ProductPrice
+    //send the request 
+    err := c.rs.SendRequest("POST",  strings.Join([]string{c.endpoint, "prices"}, ""), productPrice, &price)
+
+    if err!= nil {
+        return nil, err
+    }
+    // Return the parsed product price object
+    return &price, nil
+} 
