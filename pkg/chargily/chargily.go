@@ -215,7 +215,7 @@ type Checkout struct {
 type AllCheckoutsResponse struct {
 	Livemode                bool                         `json:"livemode"`	      
 	CurrentPage             int                          `json:"current_page"`
-	Data                    []ProductPrice               `json:"data"` 
+	Data                    []Checkout                   `json:"data"` 
 	FirstPageURL            string                       `json:"first_page_url"`
 	LastPage                int                          `json:"last_page"`
 	LastPageURL             string                       `json:"last_page_url"`
