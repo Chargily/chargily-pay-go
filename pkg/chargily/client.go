@@ -304,3 +304,18 @@ func (c *Client) CreateCheckout(checkout *CheckoutParams) (*Checkout, error) {
     // Return the parsed checkout object
     return &checkoutResp, nil
 }
+
+
+// retrieve a checkout
+func (c *Client) GetCheckout(checkoutId string) (*Checkout, error) {
+
+    var checkout Checkout
+    //send the request 
+    err := c.rs.SendRequest("GET",  strings.Join([]string{c.endpoint, "checkouts/", checkoutId }, ""), nil, &checkout)
+
+    if err!= nil {
+        return nil, err
+    }
+    // Return the parsed checkout object
+    return &checkout, nil
+}
