@@ -65,4 +65,26 @@ type AllCustomersResponse struct {
 	PrevPageURL             *string                      `json:"prev_page_url"` 
 	Total                   int                          `json:"total"`
 }
+
+
+
+type CreateProductParams struct {
+    Name                   string                        `json:"name,omitempty"`     // The name of the product.
+    Description            string                        `json:"description,omitempty"`  // The description of the product.
+    Images                 []string                      `json:"images,omitempty"`    // The URLs of images of the product, up to 8.
+    Metadata               map[string]any                `json:"metadata,omitempty"`  // A set of key-value pairs for additional information about the product.
+}
+
+
+type Product struct {
+    ID                      string                       `json:"id"`            // The unique identifier of the product.
+    Entity                  string                       `json:"entity"`          // The entity type (e.g., "product").
+    Livemode                bool                         `json:"livemode"`        // Indicates whether the mode is live.
+    Name                    string                       `json:"name"`             // The name of the product.
+    Description             string                       `json:"description"`      // The description of the product.
+    Images                  []string                     `json:"images"`          // The URLs of images of the product, up to 8.
+    Metadata                map[string]any               `json:"metadata"`         // A set of key-value pairs for additional information about the product.
+    CreatedAt               int64                        `json:"created_at"`       // The timestamp of when the product was created.
+    UpdatedAt               int64                        `json:"updated_at"`       // The timestamp of when the product was updated.
+}
  
