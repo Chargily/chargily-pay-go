@@ -287,3 +287,20 @@ func (c *Client) GetAllPrices() (*AllPricesResponse, error) {
     // Return the parsed product price object
     return &prices, nil
 }
+
+
+
+//============ CHECKOUT FUNCTIONALITIES =================// 
+
+//create a checkout 
+func (c *Client) CreateCheckout(checkout *CheckoutParams) (*Checkout, error) {
+    var checkoutResp Checkout
+    //send the request 
+    err := c.rs.SendRequest("POST",  strings.Join([]string{c.endpoint, "checkouts"}, ""), checkout, &checkoutResp)
+
+    if err!= nil {
+        return nil, err
+    }
+    // Return the parsed checkout object
+    return &checkoutResp, nil
+}
