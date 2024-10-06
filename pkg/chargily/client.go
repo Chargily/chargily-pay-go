@@ -169,3 +169,33 @@ func (c *Client) UpdateProduct(productId string,product *CreateProductParams) (*
     // Return the parsed product object
     return &productResp, nil
 }
+
+
+//retrieve a product using its unique ID
+func (c *Client) GetProduct(productId string) (*Product, error) {
+
+    var product Product
+    //send the request 
+    err := c.rs.SendRequest("GET",  strings.Join([]string{c.endpoint, "products/", productId }, ""), nil, &product)
+
+    if err != nil {
+        return nil, err
+    }
+    // Return the parsed product object
+    return &product, nil
+}
+
+
+// retrieve all products 
+func (c *Client) GetAllProducts() (*AllProductsResponse, error) {
+
+    var products AllProductsResponse
+    //send the request 
+    err := c.rs.SendRequest("GET",  strings.Join([]string{c.endpoint, "products"}, ""), nil, &products)
+
+    if err!= nil {
+        return nil, err
+    }
+    // Return the parsed product object
+    return &products, nil
+}
