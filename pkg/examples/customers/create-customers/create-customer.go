@@ -1,4 +1,4 @@
-package customers
+package createcustomers
 
 import (
 	"fmt"
