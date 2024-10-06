@@ -350,3 +350,19 @@ func (c *Client) GetCheckoutItems(checkoutId string) (*AllCheckoutItems, error) 
     // Return the parsed checkout items object
     return &items, nil
 }
+
+
+// expires a checkout 
+func (c *Client) ExpireCheckout(checkoutId string) (*Checkout ,error) {
+
+    //send the request 
+    var checkout Checkout
+    err := c.rs.SendRequest("POST",  strings.Join([]string{c.endpoint, "checkouts/", checkoutId, "/expire"}, ""), nil, &checkout)
+
+    if err!= nil {
+        return nil, err
+    }
+    // Return nil if the request was successful
+    return &checkout ,nil
+}
+
