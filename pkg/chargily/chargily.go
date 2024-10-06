@@ -285,7 +285,7 @@ type Items struct {
 
 type CreatePaymentLinkParams struct {
 	Name                   string            				`json:"name"`                         // The name associated with the order.
-	Items                  []Item            				`json:"items"`                        // A list of items in the order.
+	Items                  []Items            				`json:"items"`                        // A list of items in the order.
 	AfterCompletionMessage string            				`json:"after_completion_message"`     // A message displayed after order completion.
 	Locale                 string            				`json:"locale"`                       // The locale (e.g., "en", "fr").
 	PassFeesToCustomer     bool              				`json:"pass_fees_to_customer"`        // Indicates if fees are passed to the customer.
