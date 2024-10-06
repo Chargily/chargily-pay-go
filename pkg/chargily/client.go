@@ -199,3 +199,17 @@ func (c *Client) GetAllProducts() (*AllProductsResponse, error) {
     // Return the parsed product object
     return &products, nil
 }
+
+
+// delete a specific product
+func (c *Client) DeleteProduct(productId string) error {
+
+    //send the request 
+    err := c.rs.SendRequest("DELETE",  strings.Join([]string{c.endpoint, "products/", productId}, ""), nil, nil)
+
+    if err!= nil {
+        return err
+    }
+    // Return nil if the request was successful
+    return nil
+}
