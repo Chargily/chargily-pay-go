@@ -366,3 +366,19 @@ func (c *Client) ExpireCheckout(checkoutId string) (*Checkout ,error) {
     return &checkout ,nil
 }
 
+
+
+//================== PAYMENT LINKS =====================//
+
+//create payment link
+func (c *Client) CreatePaymentLink(paymentLink *CreatePaymentLinkParams) (*PaymentLink, error) {
+    var link PaymentLink
+    //send the request 
+    err := c.rs.SendRequest("POST",  strings.Join([]string{c.endpoint, "payment-links"}, ""), paymentLink, &link)
+
+    if err!= nil {
+        return nil, err
+    }
+    // Return the parsed payment link object
+    return &link, nil
+}
