@@ -245,3 +245,33 @@ func (c *Client) UpdatePrice(productId string, MetaDataToUpdate map[string]any )
     // Return the parsed product price object
     return &price, nil
 }
+
+
+// retrieve a price 
+func (c *Client) GetPrice(productId string) (*ProductPrice, error) {
+
+    var price ProductPrice
+    //send the request 
+    err := c.rs.SendRequest("GET",  strings.Join([]string{c.endpoint, "prices/", productId }, ""), nil, &price)
+
+    if err!= nil {
+        return nil, err
+    }
+    // Return the parsed product price object
+    return &price, nil
+}
+
+
+// retrieve a list of all prices available 
+func (c *Client) GetAllPrices() (*AllPricesResponse, error) {
+
+    var prices AllPricesResponse
+    //send the request 
+    err := c.rs.SendRequest("GET",  strings.Join([]string{c.endpoint, "prices"}, ""), nil, &prices)
+
+    if err!= nil {
+        return nil, err
+    }
+    // Return the parsed product price object
+    return &prices, nil
+}
