@@ -23,46 +23,37 @@ func main(){
     }
 
 
-    // Create items to be added to the checkout
-    items := []chargily.Item{
-        {
-            Price:    "price_1",
-            Quantity: 2,
-        },
-        {
-            Price:    "price_2",
-            Quantity: 1,
-        },
-    }
+	//price id 
+	priceID := "price-id" // must be an existing one 
 
-    // Create the checkout parameters
-    checkoutParams := &chargily.CheckoutParams{
-        Items:                 items,
-        Amount:                5000, 
-        Currency:              "usd", 
-        PaymentMethod:         "card", 
-        SuccessURL:            "https://yourwebsite.com/success",
-        CustomerID:            "customer_12345", // Optional
-        FailureURL:            "https://yourwebsite.com/failure",
-        WebhookEndpoint:       "https://yourwebsite.com/webhook",
-        Description:           "Checkout for order #12345",
-        Locale:                "en",
-        ShippingAddress:       "123 Main St, Springfield, USA", // Optional
-        CollectShippingAddress: true,
-        PercentageDiscount:    10, // 10% discount
-        AmountDiscount:        500, // $5.00 discount
-        Metadata: map[string]any{
-            "order_id": "order_12345",
-            "notes":    "This is a test order",
-        },
-    }
+
+	// Create example items to be added to the checkout.
+	items := []chargily.Item{
+	    {
+	        Price:    string(priceID),
+	        Quantity: 2,
+	    },
+	}
+
+
+	// Initialize the CheckoutParams struct with adjusted fields.
+	checkoutParams := &chargily.CheckoutParams{
+		Items: items,
+		PaymentMethod:   "edahabia",
+		SuccessURL:      "https://your-site.com/success",
+		FailureURL:      "https://your-site.com/failure",
+		WebhookEndpoint: "https://your-site.com/webhook",
+		Description:     "Checkout for Order #12345",
+		Locale:          "en",
+		PercentageDiscount: 10,
+	}
 
     // Create the checkout
-    checkout, err := client.CreateCheckout(checkoutParams)
+    checkoutdata, err := client.CreateCheckout(checkoutParams)
     if err!= nil {
         fmt.Printf("Error creating checkout: %v\n", err)
         return
     }
 
-	fmt.Printf("Created checkout: %+v\n", checkout)
+	fmt.Printf("Created checkout: %+v\n", checkoutdata)
 }
