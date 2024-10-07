@@ -82,7 +82,7 @@ func (c *Client) CreateCustomer(customer *CreateCustomerParams) (*Customer, erro
 func (c *Client) UpdateCustomer(customerID string, customer *CreateCustomerParams) (*Customer, error){
 
     var customerResp Customer
-    //create new customer request with the customer data
+    //update the customer data request with the new updated customer data
     err := c.rs.SendRequest("POST",  strings.Join([]string{c.endpoint, "customers/", customerID}, ""), customer, &customerResp)
 
     if err!= nil {
@@ -160,7 +160,8 @@ func (c *Client) CreateProduct(product *CreateProductParams) (*Product, error){
 // Update the product with it's unique ID
 func (c *Client) UpdateProduct(productId string,product *CreateProductParams) (*Product, error){
     var productResp Product
-    //create new product request with the product data
+
+    //update existing product request with the new product data
     err := c.rs.SendRequest("POST",  strings.Join([]string{c.endpoint, "products/",productId}, ""), product, &productResp)
 
     if err!= nil {
