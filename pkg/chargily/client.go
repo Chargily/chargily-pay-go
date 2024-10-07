@@ -426,3 +426,19 @@ func (c *Client) GetAllPaymentLinks() (*AllPaymentLinksResponse, error) {
     // Return the parsed payment link object
     return &links, nil
 }
+
+
+
+// retrieve a payment link's items
+func (c *Client) GetPaymentLinkItems(productId string) (*ItemsResponse, error) {
+
+    var items ItemsResponse
+    //send the request 
+    err := c.rs.SendRequest("GET",  strings.Join([]string{c.endpoint, "payment-links/", productId , "/items"}, ""), nil, &items)
+
+    if err!= nil {
+        return nil, err
+    }
+    // Return the parsed payment link items object
+    return &items, nil
+}
