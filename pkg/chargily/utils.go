@@ -77,7 +77,9 @@ func (rs * RequestSender) SendRequest(method, endpoint string, body interface{},
 
 	// Check if the status code is not in the 2xx range
 	if res.StatusCode < 200 || res.StatusCode >= 300 {
-		return fmt.Errorf("failed with status: %s", res.Status)
+		var generalError GeneralError
+		json.NewDecoder(res.Body).Decode(&generalError)
+		return fmt.Errorf("failed with status: %s , \n error : %+v", res.Status, generalError)
 	}
 
 
