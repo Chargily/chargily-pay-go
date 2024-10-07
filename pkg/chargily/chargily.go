@@ -163,11 +163,11 @@ type Item struct {
 
 // the checkout param to create a checkout
 type CheckoutParams struct {
-	Items                  []Item                        `json:"items"`           // The items to be added to the checkout.
-	Amount                  int                          `json:"amount"`           // The total amount to be charged in cents.
-	Currency                string                       `json:"currency"`         // The currency code (e.g., "dzd", "usd", "eur").
-	PaymentMethod           string                       `json:"payment_method"`    // The payment method (e.g., "card", "cash").
-	SuccessURL              string                       `json:"success_url"`      // The URL to redirect to after a successful checkout.
+	Items                  []Item                        `json:"items,omitempty"`           // The items to be added to the checkout.
+	Amount                  int                          `json:"amount,omitempty"`           // The total amount to be charged in cents.
+	Currency                string                       `json:"currency,omitempty"`         // The currency code (e.g., "dzd", "usd", "eur").
+	PaymentMethod           string                       `json:"payment_method,omitempty"`    // The payment method (e.g., "card", "cash").
+	SuccessURL              string                       `json:"success_url,omitempty"`      // The URL to redirect to after a successful checkout.
 	CustomerID              string                       `json:"customer_id,omitempty"`  // The ID of the customer to be associated with the checkout.
 	FailureURL              string                       `json:"failure_url,omitempty"`  // The URL to redirect to after a failed checkout.
 	WebhookEndpoint         string                       `json:"webhook_endpoint,omitempty"`  // The URL to send a webhook to after the checkout.
@@ -213,7 +213,7 @@ type Checkout struct {
 	CreatedAt               int64             `json:"created_at"`                  // The timestamp of when the checkout was created.
 	UpdatedAt               int64             `json:"updated_at"`                  // The timestamp of when the checkout was updated.
 	ShippingAddress         *string           `json:"shipping_address"`            // The shipping address to be associated with the checkout. This can be null.
-	CollectShippingAddress  bool              `json:"collect_shipping_address"`    // Indicates whether the shipping address should be collected.
+	CollectShippingAddress  int32             `json:"collect_shipping_address"`    // Indicates whether the shipping address should be collected.
 	Discount               	Discount		  `json:"discount"` // The discount applied to the checkout.
 	AmountWithoutDiscount   int64   		  `json:"amount_without_discount"`  // The amount without any discount.
 	CheckoutURL             string  		  `json:"checkout_url"`             // The URL to access the checkout page.
