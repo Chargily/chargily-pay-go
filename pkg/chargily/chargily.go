@@ -316,3 +316,32 @@ type AllPaymentLinksResponse struct {
 	PrevPageURL             *string                      `json:"prev_page_url"` 
 	Total                   int                          `json:"total"`
 }
+
+
+
+type ItemData struct {
+	ID                	string      						  `json:"id"`                  // The unique identifier of the item.
+	Entity            	string      						  `json:"entity"`              // The entity type (e.g., "price").
+	Amount            	int         						  `json:"amount"`              // The amount for the item.
+	Quantity          	int         						  `json:"quantity"`            // The quantity of the item.
+	AdjustableQuantity	int       						  `json:"adjustable_quantity"` // Indicates whether the quantity is adjustable (converted from 0 or 1 to bool).
+	Currency          	string      						  `json:"currency"`            // The currency code (e.g., "dzd").
+	Metadata          	interface{} 						  `json:"metadata"`            // Metadata associated with the item.
+	CreatedAt         	int64       						  `json:"created_at"`          // Timestamp when the item was created.
+	UpdatedAt         	int64       						  `json:"updated_at"`          // Timestamp when the item was last updated.
+	ProductID         	string      						  `json:"product_id"`          // The associated product ID.
+}
+
+type ItemsResponse struct {
+	Livemode      	   bool   		  					`json:"livemode"`          // Indicates whether the mode is live.
+	CurrentPage   	   int    		  					`json:"current_page"`      // The current page number.
+	Data          	   []ItemData     					 `json:"data"`              // List of items in the current page.
+	FirstPageURL  	   string 		  					`json:"first_page_url"`    // URL of the first page.
+	LastPage      	   int    		  					`json:"last_page"`         // The last page number.
+	LastPageURL   	   string 		  					`json:"last_page_url"`     // URL of the last page.
+	NextPageURL   	   *string        					 `json:"next_page_url"`    // URL of the next page, or null.
+	Path          	   string 		  					`json:"path"`              // Path to the current resource.
+	PerPage       	   int    		  					`json:"per_page"`          // Number of items per page.
+	PrevPageURL   	   *string		  					`json:"prev_page_url"`    // URL of the previous page, or null.
+	Total         	   int    		  					`json:"total"`             // Total number of items.
+}
