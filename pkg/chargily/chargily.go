@@ -114,6 +114,15 @@ type ProductPriceParams struct {
 }
 
 
+//update PriceMetaData 
+type UpdatePriceMetaDataParams struct {
+    Metadata                 map[string]any              `json:"metadata"`  // Additional information about the price.
+}
+
+
+// ProductPrice represents a price entity.
+
+
 type ProductPrice struct {
 	ID                      string                       `json:"id"`            // The unique identifier of the price.
 	Entity                  string                       `json:"entity"`          // The entity type (e.g., "price").
@@ -121,7 +130,7 @@ type ProductPrice struct {
 	Amount                  int64                        `json:"amount"`          // The price amount in cents.
 	Currency                string                       `json:"currency"`         // The currency code (e.g., "dzd", "usd", "eur").
 	ProductID               string                       `json:"product_id"`      // The ID of the product to which the price applies.
-	Metadata                map[string]any               `json:"metadata"`         // Additional information about the price.
+	Metadata                map[string]any               `json:"metadata,omitempty"`         // Additional information about the price.
 	CreatedAt               int64                        `json:"created_at"`       // The timestamp of when the price was created.
 	UpdatedAt               int64                        `json:"updated_at"`       // The timestamp of when the price was updated.
 }
@@ -154,11 +163,11 @@ type Item struct {
 
 // the checkout param to create a checkout
 type CheckoutParams struct {
-	Items                  []Item                        `json:"items"`           // The items to be added to the checkout.
-	Amount                  int                          `json:"amount"`           // The total amount to be charged in cents.
-	Currency                string                       `json:"currency"`         // The currency code (e.g., "dzd", "usd", "eur").
-	PaymentMethod           string                       `json:"payment_method"`    // The payment method (e.g., "card", "cash").
-	SuccessURL              string                       `json:"success_url"`      // The URL to redirect to after a successful checkout.
+	Items                  []Item                        `json:"items,omitempty"`           // The items to be added to the checkout.
+	Amount                  int                          `json:"amount,omitempty"`           // The total amount to be charged in cents.
+	Currency                string                       `json:"currency,omitempty"`         // The currency code (e.g., "dzd", "usd", "eur").
+	PaymentMethod           string                       `json:"payment_method,omitempty"`    // The payment method (e.g., "card", "cash").
+	SuccessURL              string                       `json:"success_url,omitempty"`      // The URL to redirect to after a successful checkout.
 	CustomerID              string                       `json:"customer_id,omitempty"`  // The ID of the customer to be associated with the checkout.
 	FailureURL              string                       `json:"failure_url,omitempty"`  // The URL to redirect to after a failed checkout.
 	WebhookEndpoint         string                       `json:"webhook_endpoint,omitempty"`  // The URL to send a webhook to after the checkout.
@@ -204,7 +213,7 @@ type Checkout struct {
 	CreatedAt               int64             `json:"created_at"`                  // The timestamp of when the checkout was created.
 	UpdatedAt               int64             `json:"updated_at"`                  // The timestamp of when the checkout was updated.
 	ShippingAddress         *string           `json:"shipping_address"`            // The shipping address to be associated with the checkout. This can be null.
-	CollectShippingAddress  bool              `json:"collect_shipping_address"`    // Indicates whether the shipping address should be collected.
+	CollectShippingAddress  int32             `json:"collect_shipping_address"`    // Indicates whether the shipping address should be collected.
 	Discount               	Discount		  `json:"discount"` // The discount applied to the checkout.
 	AmountWithoutDiscount   int64   		  `json:"amount_without_discount"`  // The amount without any discount.
 	CheckoutURL             string  		  `json:"checkout_url"`             // The URL to access the checkout page.
@@ -272,7 +281,7 @@ type PaymentLink struct {
 	Metadata                map[string]any  						   `json:"metadata"`                   // Additional metadata associated with the payment link.
 	CreatedAt              int64   						  `json:"created_at"`                  // The timestamp when the payment link was created.
 	UpdatedAt              int64   						  `json:"updated_at"`                  // The timestamp when the payment link was last updated.
-	CollectShippingAddress  int    						   `json:"collect_shipping_address"`   // Indicates whether the shipping address should be collected (0 or 1).
+	CollectShippingAddress int32    						  `json:"collect_shipping_address"`   // Indicates whether the shipping address should be collected (0 or 1).
 	URL                    string  						  `json:"url"`                         // The URL to access the payment link.
 }
 
@@ -289,7 +298,7 @@ type CreatePaymentLinkParams struct {
 	AfterCompletionMessage string            				`json:"after_completion_message"`     // A message displayed after order completion.
 	Locale                 string            				`json:"locale"`                       // The locale (e.g., "en", "fr").
 	PassFeesToCustomer     bool              				`json:"pass_fees_to_customer"`        // Indicates if fees are passed to the customer.
-	CollectShippingAddress bool              				`json:"collect_shipping_address"`     // Indicates whether to collect a shipping address.
+	CollectShippingAddress int32              				`json:"collect_shipping_address"`     // Indicates whether to collect a shipping address.
 	Metadata               map[string]any    				`json:"metadata"`                     // Additional metadata for the order.
 }
 

@@ -20,7 +20,9 @@ func main(){
     }
 
     // Create a new customer
-    price := map[string]any{"key-up":"value-up"}
+    price := &chargily.UpdatePriceMetaDataParams{
+        Metadata: map[string]any{"key":"val"},
+    }
     
 
 	//product ID 

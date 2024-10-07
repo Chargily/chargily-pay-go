@@ -246,10 +246,11 @@ func (c *Client) CreatePrice(productPrice  * ProductPriceParams) (*ProductPrice,
 
 
 // update the product price data (not the price itself as mentioned in the docs of Chargily) for a specific product
-func (c *Client) UpdatePrice(productId string, MetaDataToUpdate map[string]any ) (*ProductPrice, error) {
+func (c *Client) UpdatePrice(productId string, Data * UpdatePriceMetaDataParams ) (*ProductPrice, error) {
     var price ProductPrice
     //send the request 
-    err := c.rs.SendRequest("POST",  strings.Join([]string{c.endpoint, "prices/", productId}, ""), MetaDataToUpdate, &price)
+
+    err := c.rs.SendRequest("POST",  strings.Join([]string{c.endpoint, "prices/", productId}, ""), Data , &price)
 
     if err!= nil {
         return nil, err
