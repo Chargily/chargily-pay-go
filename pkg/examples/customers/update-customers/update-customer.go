@@ -19,7 +19,7 @@ func main(){
         return
     }
 
-    // Create a new customer
+    // Update a customer data
     customerParams := &chargily.CreateCustomerParams{
         Name:  "John Doe",
         Email: "john.doe@example.com",
