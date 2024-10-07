@@ -31,7 +31,7 @@ func main(){
 		},
 	}
 
-	// Create the payment link parameters
+	// updated payment link data
 	paymentLinkParams := &chargily.CreatePaymentLinkParams{
 		Name:                   "Test Order for Payment Link",
 		Items:                  itemss,

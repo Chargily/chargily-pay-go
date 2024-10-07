@@ -19,7 +19,7 @@ func main(){
         return
     }
 
-    // Create a new customer
+    // Create a new price
     price := &chargily.ProductPriceParams{
         ProductID: "your-product-id",
         Currency: "USD",
@@ -27,7 +27,7 @@ func main(){
 		Metadata: map[string]any{"key":"value"},
     }
 
-	// create the product price and get back the price object
+	// update the price metadata
     productPrice, err := client.CreatePrice(price)
     if err!= nil {
 		fmt.Printf("Error creating price: %v\n", err)
