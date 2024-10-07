@@ -23,33 +23,28 @@ func main(){
     }
 
 
-    // Create items to be added to the payment link
-    items := []chargily.Items{
-        {
-            Price:              "price_1",
-            Quantity:           2,
-            AdjustableQuantity:  true,
-        },
-        {
-            Price:              "price_2",
-            Quantity:           1,
-            AdjustableQuantity:  false,
-        },
-    }
+	// Create items to be added to the payment link
+	itemss := []chargily.Items{
+		{
+			Price:              "01j9k9m78jp18bdky07s0rxxtg",
+			Quantity:           2,
+			AdjustableQuantity:  true,
+		},
+	}
 
-    // Create the payment link parameters
-    paymentLinkParams := &chargily.CreatePaymentLinkParams{
-        Name:                   "Test Order for Payment Link",
-        Items:                  items,
-        AfterCompletionMessage: "Thank you for your order!",
-        Locale:                 "en",
-        PassFeesToCustomer:     false,
-        CollectShippingAddress: true,
-        Metadata: map[string]any{
-            "order_id": "order_54321",
-            "notes":    "This is a test order for payment link.",
-        },
-    }
+	// Create the payment link parameters
+	paymentLinkParams := &chargily.CreatePaymentLinkParams{
+		Name:                   "Test Order for Payment Link",
+		Items:                  itemss,
+		AfterCompletionMessage: "Thank you for your order!",
+		Locale:                 "en",
+		PassFeesToCustomer:     false,
+		CollectShippingAddress: 1,
+		Metadata: map[string]any{
+			"order_id": "order_54321",
+			"notes":    "This is a test order for payment link.",
+		},
+	}
 
 	// Create the payment link
 	paymentLink, err := client.CreatePaymentLink(paymentLinkParams)
