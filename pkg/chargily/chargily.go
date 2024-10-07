@@ -281,7 +281,7 @@ type PaymentLink struct {
 	Metadata                map[string]any  						   `json:"metadata"`                   // Additional metadata associated with the payment link.
 	CreatedAt              int64   						  `json:"created_at"`                  // The timestamp when the payment link was created.
 	UpdatedAt              int64   						  `json:"updated_at"`                  // The timestamp when the payment link was last updated.
-	CollectShippingAddress  int    						   `json:"collect_shipping_address"`   // Indicates whether the shipping address should be collected (0 or 1).
+	CollectShippingAddress int32    						  `json:"collect_shipping_address"`   // Indicates whether the shipping address should be collected (0 or 1).
 	URL                    string  						  `json:"url"`                         // The URL to access the payment link.
 }
 
@@ -298,7 +298,7 @@ type CreatePaymentLinkParams struct {
 	AfterCompletionMessage string            				`json:"after_completion_message"`     // A message displayed after order completion.
 	Locale                 string            				`json:"locale"`                       // The locale (e.g., "en", "fr").
 	PassFeesToCustomer     bool              				`json:"pass_fees_to_customer"`        // Indicates if fees are passed to the customer.
-	CollectShippingAddress bool              				`json:"collect_shipping_address"`     // Indicates whether to collect a shipping address.
+	CollectShippingAddress int32              				`json:"collect_shipping_address"`     // Indicates whether to collect a shipping address.
 	Metadata               map[string]any    				`json:"metadata"`                     // Additional metadata for the order.
 }
 
