@@ -37,7 +37,7 @@ type ProductPrice struct {
 }
 
 
-type Item struct {
+type CItems struct {
 	Price                  string                       `json:"price"`           // The ID of the price to be added to the checkout.
 	Quantity               int                          `json:"quantity"`         // The quantity of the item.
 }
@@ -62,19 +62,19 @@ type CheckoutItems struct {
 }
 
 
-type Items struct {
+type PItems struct {
 	Price              		string 						   `json:"price"`                		// The price of the item as a string.
 	Quantity           		int    						   `json:"quantity"`             		// The quantity of the item.
 	AdjustableQuantity 		bool   						   `json:"adjustable_quantity"`  		// Indicates if the quantity is adjustable by the customer.
 }
 
 
-type ItemData struct {
+type PItemsData struct {
 	ID                	string      						  `json:"id"`                  // The unique identifier of the item.
 	Entity            	string      						  `json:"entity"`              // The entity type (e.g., "price").
 	Amount            	int         						  `json:"amount"`              // The amount for the item.
 	Quantity          	int         						  `json:"quantity"`            // The quantity of the item.
-	AdjustableQuantity	int       						  `json:"adjustable_quantity"` // Indicates whether the quantity is adjustable (converted from 0 or 1 to bool).
+	AdjustableQuantity	int       						  	  `json:"adjustable_quantity"` // Indicates whether the quantity is adjustable (converted from 0 or 1 to bool).
 	Currency          	string      						  `json:"currency"`            // The currency code (e.g., "dzd").
 	Metadata          	interface{} 						  `json:"metadata"`            // Metadata associated with the item.
 	CreatedAt         	int64       						  `json:"created_at"`          // Timestamp when the item was created.
@@ -97,64 +97,65 @@ type ItemData struct {
 
 // CreateCustomerParams represents the parameters for creating a customer.
 type CreateCustomerParams struct {
-	Name     			string            			`json:"name,omitempty"`     // The name of the customer.
-	Email    			string            			`json:"email,omitempty"`    // The email address of the customer.
-	Phone    			string            			`json:"phone,omitempty"`    // The phone number of the customer.
-	Address  			*Address          			`json:"address,omitempty"`  // The address of the customer.
-	Metadata 			map[string]any    			`json:"metadata,omitempty"`  // Additional info about the customer.
+	Name     			string            					`json:"name,omitempty"`     // The name of the customer.
+	Email    			string            					`json:"email,omitempty"`    // The email address of the customer.
+	Phone    			string            					`json:"phone,omitempty"`    // The phone number of the customer.
+	Address  			*Address          					`json:"address,omitempty"`  // The address of the customer.
+	Metadata 			map[string]any    					`json:"metadata,omitempty"`  // Additional info about the customer.
 }
 
 
 // price operations related structs
 type ProductPriceParams struct {
-	Amount                  int64                        `json:"amount"`          // The price amount in cents.
-	Currency                string                       `json:"currency"`         // The currency code (e.g., "dzd", "usd", "eur").
-	ProductID               string                       `json:"product_id"`      // The ID of the product to which the price applies.
-	Metadata                 map[string]any              `json:"metadata,omitempty"`  // Additional information about the price.
+	Amount                  int64                        	`json:"amount"`          // The price amount in cents.
+	Currency                string                       	`json:"currency"`         // The currency code (e.g., "dzd", "usd", "eur").
+	ProductID               string                       	`json:"product_id"`      // The ID of the product to which the price applies.
+	Metadata                 map[string]any              	`json:"metadata,omitempty"`  // Additional information about the price.
 }
 
 
 // Creating a new product params 
 type CreateProductParams struct {
-    Name                   string                        `json:"name,omitempty"`     // The name of the product.
-    Description            string                        `json:"description,omitempty"`  // The description of the product.
-    Images                 []string                      `json:"images,omitempty"`    // The URLs of images of the product, up to 8.
-    Metadata               map[string]any                `json:"metadata,omitempty"`  // A set of key-value pairs for additional information about the product.
+    Name                   string                        	`json:"name,omitempty"`     // The name of the product.
+    Description            string                        	`json:"description,omitempty"`  // The description of the product.
+    Images                 []string                      	`json:"images,omitempty"`    // The URLs of images of the product, up to 8.
+    Metadata               map[string]any                	`json:"metadata,omitempty"`  // A set of key-value pairs for additional information about the product.
 }
 
 
 
 //update PriceMetaData 
 type UpdatePriceMetaDataParams struct {
-    Metadata                 map[string]any              `json:"metadata"`  // Additional information about the price.
+    Metadata                 map[string]any              	`json:"metadata"`  // Additional information about the price.
 }
 
 
 
-// the checkout param to create a checkout
+// CheckoutParams represents the parameters required to create a checkout.
 type CheckoutParams struct {
-	Items                  []Item                        `json:"items,omitempty"`           // The items to be added to the checkout.
-	Amount                  int                          `json:"amount,omitempty"`           // The total amount to be charged in cents.
-	Currency                string                       `json:"currency,omitempty"`         // The currency code (e.g., "dzd", "usd", "eur").
-	PaymentMethod           string                       `json:"payment_method,omitempty"`    // The payment method (e.g., "card", "cash").
-	SuccessURL              string                       `json:"success_url,omitempty"`      // The URL to redirect to after a successful checkout.
-	CustomerID              string                       `json:"customer_id,omitempty"`  // The ID of the customer to be associated with the checkout.
-	FailureURL              string                       `json:"failure_url,omitempty"`  // The URL to redirect to after a failed checkout.
-	WebhookEndpoint         string                       `json:"webhook_endpoint,omitempty"`  // The URL to send a webhook to after the checkout.
-	Description             string                       `json:"description,omitempty"`  // A description of the checkout.
-	Locale                  string                       `json:"locale,omitempty"`  // The locale (e.g., "en", "fr", "es").
-	ShippingAddress         string                       `json:"shipping_address,omitempty"`  // The shipping address to be associated with the checkout.
-	CollectShippingAddress  bool                         `json:"collect_shipping_address,omitempty"`  // Indicates whether the shipping address should be collected.
-	PercentageDiscount      int                          `json:"percentage_discount,omitempty"`  // The percentage discount to be applied to the checkout.
-	AmountDiscount          int                          `json:"amount_discount,omitempty"`  // The amount discount to be applied to the checkout in cents.
-	Metadata                map[string]any               `json:"metadata,omitempty"`  // Additional information about the checkout.
+	Items                 	[]CItems          				`json:"items,omitempty"`               // Optional. The items to be added to the checkout.
+	Amount                	int             				`json:"amount,omitempty"`                        // Required if items are not provided. The total amount in cents.
+	Currency              	string          				`json:"currency,omitempty"`                      // Required if amount is provided. ISO currency code (e.g., "dzd").
+	PaymentMethod         	string          				`json:"payment_method,omitempty"`      // Optional. Payment method (e.g., "edahabia", "cib").
+	SuccessURL            	string          				`json:"success_url"`                   // Required. URL to redirect after successful payment.
+	CustomerID            	string          				`json:"customer_id,omitempty"`         // Optional. ID of the existing customer.
+	FailureURL            	string          				`json:"failure_url,omitempty"`         // Optional. URL to redirect after failed/canceled payment.
+	WebhookEndpoint       	string          				`json:"webhook_endpoint,omitempty"`    // Optional. URL to receive webhook events after checkout.
+	Description           	string          				`json:"description,omitempty"`         // Optional. Description of the checkout.
+	Locale                	string          				`json:"locale,omitempty"`              // Optional. Checkout page language (e.g., "en", "fr", "ar").
+	ShippingAddress       	string          				`json:"shipping_address,omitempty"`    // Optional. Customer's shipping address.
+	CollectShippingAddress 	bool           					`json:"collect_shipping_address,omitempty"` // Optional. Whether to collect the shipping address from the customer.
+	PercentageDiscount    	int             				`json:"percentage_discount,omitempty"` // Optional. Percentage discount, prohibited if amount discount is provided.
+	AmountDiscount        	int             				`json:"amount_discount,omitempty"`     // Optional. Amount discount in cents, prohibited if percentage discount is provided.
+	Metadata              	map[string]any  				`json:"metadata,omitempty"`            // Optional. Additional key-value pairs for extra checkout information.
 }
+
 
 
 // Create a new payment link 
 type CreatePaymentLinkParams struct {
 	Name                   string            				`json:"name"`                         // The name associated with the order.
-	Items                  []Items            				`json:"items"`                        // A list of items in the order.
+	Items                  []PItems            				`json:"items"`                        // A list of items in the order.
 	AfterCompletionMessage string            				`json:"after_completion_message"`     // A message displayed after order completion.
 	Locale                 string            				`json:"locale"`                       // The locale (e.g., "en", "fr").
 	PassFeesToCustomer     bool              				`json:"pass_fees_to_customer"`        // Indicates if fees are passed to the customer.
@@ -185,9 +186,9 @@ type CreatePaymentLinkParams struct {
 
 // Balance represents the overall balance entity.
 type Balance struct {
-    Entity   string   `json:"entity"`   // The entity type (e.g., "balance")
-    LiveMode bool     `json:"livemode"` // Indicates whether the mode is live
-    Wallets  []Wallet `json:"wallets"`  // A slice of Wallet structs
+    Entity   				string   					`json:"entity"`   // The entity type (e.g., "balance")
+    LiveMode 				bool     					`json:"livemode"` // Indicates whether the mode is live
+    Wallets  				[]Wallet 					`json:"wallets"`  // A slice of Wallet structs
 }
 
 
@@ -206,23 +207,6 @@ type Customer struct {
 }
 
 
-// AllCustomersResponse represents the retrieval of all customers
-type AllCustomersResponse struct {
-	Livemode                bool                         `json:"livemode"`
-	CurrentPage             int                          `json:"current_page"`
-	Data                    []Customer                   `json:"data"` 
-	FirstPageURL            string                       `json:"first_page_url"`
-	LastPage                int                          `json:"last_page"`
-	LastPageURL             string                       `json:"last_page_url"`
-	NextPageURL             *string                      `json:"next_page_url"` 
-	Path                    string                       `json:"path"`
-	PerPage                 int                          `json:"per_page"`
-	PrevPageURL             *string                      `json:"prev_page_url"` 
-	Total                   int                          `json:"total"`
-}
-
-
-
 // Product Object 
 type Product struct {
     ID                      string                       `json:"id"`            // The unique identifier of the product.
@@ -237,104 +221,37 @@ type Product struct {
 }
 
 
-// AllProductsResponse represents the response returned of all the products
-type AllProductsResponse struct {
-	Livemode                bool                         `json:"livemode"`
-	CurrentPage             int                          `json:"current_page"`
-	Data                    []Product                    `json:"data"` 
-	FirstPageURL            string                       `json:"first_page_url"`
-	LastPage                int                          `json:"last_page"`
-	LastPageURL             string                       `json:"last_page_url"`
-	NextPageURL             *string                      `json:"next_page_url"` 
-	Path                    string                       `json:"path"`
-	PerPage                 int                          `json:"per_page"`
-	PrevPageURL             *string                      `json:"prev_page_url"` 
-	Total                   int                          `json:"total"`
-}
-
-
-// AllPricesResponse represents the response returned of all the prices
-type AllPricesResponse struct {
-	Livemode                bool                         `json:"livemode"`	      
-	CurrentPage             int                          `json:"current_page"`
-	Data                    []ProductPrice               `json:"data"` 
-	FirstPageURL            string                       `json:"first_page_url"`
-	LastPage                int                          `json:"last_page"`
-	LastPageURL             string                       `json:"last_page_url"`
-	NextPageURL             *string                      `json:"next_page_url"` 
-	Path                    string                       `json:"path"`
-	PerPage                 int                          `json:"per_page"`
-	PrevPageURL             *string                      `json:"prev_page_url"` 
-	Total                   int                          `json:"total"`
-}
-
-
 // Checkout Object to be returned
 type Checkout struct {
-	ID                      string            `json:"id"`                          // The unique identifier of the checkout.
-	Entity                  string            `json:"entity"`                      // The entity type (e.g., "checkout").
-	Livemode                bool              `json:"livemode"`                    // Indicates whether the mode is live.
-	Amount                  int64             `json:"amount"`                      // The total amount to be charged in cents.
-	Currency                string            `json:"currency"`                    // The currency of the checkout (e.g., "dzd").
-	Fees                    int64             `json:"fees"`                        // The fees charged to the checkout.
-	FeesOnMerchant          int64             `json:"fees_on_merchant"`            // The fees charged to the merchant in cents.
-	FeesOnCustomer          int64             `json:"fees_on_customer"`            // The fees charged to the customer in cents.
-	PassFeesToCustomer      *bool             `json:"pass_fees_to_customer"`       // Indicates whether the fees should be passed to the customer. This can be null.
-	ChargilyPayFeesAllocation string           `json:"chargily_pay_fees_allocation"` // The allocation of fees to Chargily Pay.
-	Status                  string            `json:"status"`                      // The status of the checkout (e.g., "pending", "succeeded", "failed").
-	Locale                  string            `json:"locale"`                      // The locale (e.g., "en", "fr", "es").
-	Description             *string           `json:"description"`                 // A description of the checkout. This can be null.
-	Metadata                *map[string]any   `json:"metadata"`                    // Additional information about the checkout. This can be null.
-	SuccessURL              string            `json:"success_url"`                 // The URL to redirect to after a successful checkout.
-	FailureURL              string            `json:"failure_url"`                 // The URL to redirect to after a failed checkout.
-	WebhookEndpoint         *string           `json:"webhook_endpoint"`            // The URL to send a webhook to after the checkout. This can be null.
-	PaymentMethod           *string           `json:"payment_method"`              // The payment method (e.g., "card", "cash"). This can be null.
-	InvoiceID               *string           `json:"invoice_id"`                  // The ID of the invoice associated with the checkout. This can be null.
-	CustomerID              string            `json:"customer_id"`                 // The ID of the customer associated with the checkout.
-	PaymentLinkID           *string           `json:"payment_link_id"`             // The ID of the payment link associated with the checkout. This can be null.
-	CreatedAt               int64             `json:"created_at"`                  // The timestamp of when the checkout was created.
-	UpdatedAt               int64             `json:"updated_at"`                  // The timestamp of when the checkout was updated.
-	ShippingAddress         *string           `json:"shipping_address"`            // The shipping address to be associated with the checkout. This can be null.
-	CollectShippingAddress  int32             `json:"collect_shipping_address"`    // Indicates whether the shipping address should be collected.
-	Discount               	Discount		  `json:"discount"` // The discount applied to the checkout.
-	AmountWithoutDiscount   int64   		  `json:"amount_without_discount"`  // The amount without any discount.
-	CheckoutURL             string  		  `json:"checkout_url"`             // The URL to access the checkout page.
+	ID                      string            			  `json:"id"`                          // The unique identifier of the checkout.
+	Entity                  string            			  `json:"entity"`                      // The entity type (e.g., "checkout").
+	Livemode                bool              			  `json:"livemode"`                    // Indicates whether the mode is live.
+	Amount                  int64             			  `json:"amount"`                      // The total amount to be charged in cents.
+	Currency                string            			  `json:"currency"`                    // The currency of the checkout (e.g., "dzd").
+	Fees                    int64             			  `json:"fees"`                        // The fees charged to the checkout.
+	FeesOnMerchant          int64             			  `json:"fees_on_merchant"`            // The fees charged to the merchant in cents.
+	FeesOnCustomer          int64             			  `json:"fees_on_customer"`            // The fees charged to the customer in cents.
+	PassFeesToCustomer      *bool             			  `json:"pass_fees_to_customer"`       // Indicates whether the fees should be passed to the customer. This can be null.
+	ChargilyPayFeesAllocation string          			   `json:"chargily_pay_fees_allocation"` // The allocation of fees to Chargily Pay.
+	Status                  string            			  `json:"status"`                      // The status of the checkout (e.g., "pending", "succeeded", "failed").
+	Locale                  string            			  `json:"locale"`                      // The locale (e.g., "en", "fr", "es").
+	Description             *string           			  `json:"description"`                 // A description of the checkout. This can be null.
+	Metadata                *map[string]any   			  `json:"metadata"`                    // Additional information about the checkout. This can be null.
+	SuccessURL              string            			  `json:"success_url"`                 // The URL to redirect to after a successful checkout.
+	FailureURL              string            			  `json:"failure_url"`                 // The URL to redirect to after a failed checkout.
+	WebhookEndpoint         *string           			  `json:"webhook_endpoint"`            // The URL to send a webhook to after the checkout. This can be null.
+	PaymentMethod           *string           			  `json:"payment_method"`              // The payment method (e.g., "card", "cash"). This can be null.
+	InvoiceID               *string           			  `json:"invoice_id"`                  // The ID of the invoice associated with the checkout. This can be null.
+	CustomerID              string            			  `json:"customer_id"`                 // The ID of the customer associated with the checkout.
+	PaymentLinkID           *string           			  `json:"payment_link_id"`             // The ID of the payment link associated with the checkout. This can be null.
+	CreatedAt               int64             			  `json:"created_at"`                  // The timestamp of when the checkout was created.
+	UpdatedAt               int64             			  `json:"updated_at"`                  // The timestamp of when the checkout was updated.
+	ShippingAddress         *string           			  `json:"shipping_address"`            // The shipping address to be associated with the checkout. This can be null.
+	CollectShippingAddress  int32             			  `json:"collect_shipping_address"`    // Indicates whether the shipping address should be collected.
+	Discount               	Discount		  			  `json:"discount"` // The discount applied to the checkout.
+	AmountWithoutDiscount   int64   		  			  `json:"amount_without_discount"`  // The amount without any discount.
+	CheckoutURL             string  		  			  `json:"checkout_url"`             // The URL to access the checkout page.
 }
-
-
-
-
-// AllCheckoutsResponse represents the response of all the checkouts
-type AllCheckoutsResponse struct {
-	Livemode                bool                         `json:"livemode"`	      
-	CurrentPage             int                          `json:"current_page"`
-	Data                    []Checkout                   `json:"data"` 
-	FirstPageURL            string                       `json:"first_page_url"`
-	LastPage                int                          `json:"last_page"`
-	LastPageURL             string                       `json:"last_page_url"`
-	NextPageURL             *string                      `json:"next_page_url"` 
-	Path                    string                       `json:"path"`
-	PerPage                 int                          `json:"per_page"`
-	PrevPageURL             *string                      `json:"prev_page_url"` 
-	Total                   int                          `json:"total"`
-}
-
-
-// all checkout's Items 
-type AllCheckoutItems struct {
-	Livemode     		    bool                          `json:"livemode"`          // Indicates whether the checkout is in live mode.
-	CurrentPage  		    int                           `json:"current_page"`      // The current page of results.
-	Data         		    []CheckoutItems                `json:"data"`              // A list of checkout items on the current page.
-	FirstPageURL 		    string                        `json:"first_page_url"`    // The URL for the first page.
-	LastPage     		    int                           `json:"last_page"`         // The last available page.
-	LastPageURL  		    string                        `json:"last_page_url"`     // The URL for the last page.
-	NextPageURL  		    *string                       `json:"next_page_url"`     // The URL for the next page, null if there is none.
-	Path         		    string                        `json:"path"`              // The base path for the pagination.
-	PerPage      		    int                           `json:"per_page"`          // The number of items per page.
-	PrevPageURL  		    *string                       `json:"prev_page_url"`     // The URL for the previous page, null if there is none.
-	Total        		    int                           `json:"total"`             // The total number of checkout items.
-}
-
 
 
 
@@ -356,12 +273,20 @@ type PaymentLink struct {
 }
 
 
+////////////////////////////////////////////////////////////////////
 
 
-type AllPaymentLinksResponse struct {
+
+
+//=================G GENERIC RESPONSES =========================//
+//////////////////////////////////////////////////////////////////
+
+
+// Generic response for retrieving all entries of any type
+type RetrieveAll[T any] struct {
 	Livemode                bool                         `json:"livemode"`
 	CurrentPage             int                          `json:"current_page"`
-	Data                    []PaymentLink                `json:"data"` 
+	Data                    []T                   		`json:"data"` 
 	FirstPageURL            string                       `json:"first_page_url"`
 	LastPage                int                          `json:"last_page"`
 	LastPageURL             string                       `json:"last_page_url"`
@@ -372,26 +297,4 @@ type AllPaymentLinksResponse struct {
 	Total                   int                          `json:"total"`
 }
 
-
-
-
-
-type ItemsResponse struct {
-	Livemode      	   bool   		  					`json:"livemode"`          // Indicates whether the mode is live.
-	CurrentPage   	   int    		  					`json:"current_page"`      // The current page number.
-	Data          	   []ItemData     					 `json:"data"`              // List of items in the current page.
-	FirstPageURL  	   string 		  					`json:"first_page_url"`    // URL of the first page.
-	LastPage      	   int    		  					`json:"last_page"`         // The last page number.
-	LastPageURL   	   string 		  					`json:"last_page_url"`     // URL of the last page.
-	NextPageURL   	   *string        					 `json:"next_page_url"`    // URL of the next page, or null.
-	Path          	   string 		  					`json:"path"`              // Path to the current resource.
-	PerPage       	   int    		  					`json:"per_page"`          // Number of items per page.
-	PrevPageURL   	   *string		  					`json:"prev_page_url"`    // URL of the previous page, or null.
-	Total         	   int    		  					`json:"total"`             // Total number of items.
-}
-
-
-
-////////////////////////////////////////////////////////////////////
-
-
+/////////////////////////////////////////////////////////////////

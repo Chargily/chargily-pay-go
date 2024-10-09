@@ -17,10 +17,6 @@
 # Dependency directories (for vendored dependencies, often used in development)
 vendor/
 
-# Go modules
-go.mod
-go.sum
-
 # Go build artifacts
 bin/
 build/

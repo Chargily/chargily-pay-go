@@ -28,7 +28,7 @@ func main(){
 
 
 	// Create example items to be added to the checkout.
-	items := []chargily.Item{
+	items := []chargily.CItems{
 	    {
 	        Price:    string(priceID),
 	        Quantity: 2,
