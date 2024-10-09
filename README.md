@@ -317,6 +317,14 @@ fmt.Println("Prices:", prices)
 ### 1. create a checkout
 
 ```go
+// Create example items to be added to the checkout.
+items := []chargily.CItems{
+    {
+        Price:    string(priceID),
+        Quantity: 2,
+    },
+}
+
 // Initialize the CheckoutParams struct with adjusted fields.
 checkoutParams := &chargily.CheckoutParams{
 	Items: items,
@@ -386,10 +394,19 @@ fmt.Println("Checkout expired:", expiredCheckout)
 ### 1. Create a Payment Link
 
 ```go
+// Create items to be added to the payment link
+items := []chargily.PItems{
+	{
+		Price:              "01j9k9m78jp18bdky07s0rxxtg", //id example
+		Quantity:            2,
+		AdjustableQuantity:  true,
+	},
+}
+
 // Create the payment link parameters
 paymentLinkParams := &chargily.CreatePaymentLinkParams{
 	Name:                   "Test Order for Payment Link",
-	Items:                  itemss,
+	Items:                  items,
 	AfterCompletionMessage: "Thank you for your order!",
 	Locale:                 "en",
 	PassFeesToCustomer:     false,
@@ -411,10 +428,19 @@ if err!= nil {
 ### 2. Update a Payment Link
 
 ```go
+// the items to add to a payment link
+items := []chargily.PItems{
+	{
+		Price:              "01j9k9m78jp18bdky07s0rxxtg",
+		Quantity:           2,
+		AdjustableQuantity:  true,
+	},
+}
+
 // updated payment link data
 paymentLinkParams := &chargily.CreatePaymentLinkParams{
 	Name:                   "Test Order for Payment Link",
-	Items:                  itemss,
+	Items:                  items,
 	AfterCompletionMessage: "Thank you for your order!",
 	Locale:                 "en",
 	PassFeesToCustomer:     true,
