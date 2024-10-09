@@ -37,7 +37,7 @@ type ProductPrice struct {
 }
 
 
-type Item struct {
+type CItems struct {
 	Price                  string                       `json:"price"`           // The ID of the price to be added to the checkout.
 	Quantity               int                          `json:"quantity"`         // The quantity of the item.
 }
@@ -62,14 +62,14 @@ type CheckoutItems struct {
 }
 
 
-type Items struct {
+type PItems struct {
 	Price              		string 						   `json:"price"`                		// The price of the item as a string.
 	Quantity           		int    						   `json:"quantity"`             		// The quantity of the item.
 	AdjustableQuantity 		bool   						   `json:"adjustable_quantity"`  		// Indicates if the quantity is adjustable by the customer.
 }
 
 
-type ItemData struct {
+type PItemsData struct {
 	ID                	string      						  `json:"id"`                  // The unique identifier of the item.
 	Entity            	string      						  `json:"entity"`              // The entity type (e.g., "price").
 	Amount            	int         						  `json:"amount"`              // The amount for the item.
@@ -133,7 +133,7 @@ type UpdatePriceMetaDataParams struct {
 
 // CheckoutParams represents the parameters required to create a checkout.
 type CheckoutParams struct {
-	Items                 	[]Item          				`json:"items,omitempty"`               // Optional. The items to be added to the checkout.
+	Items                 	[]CItems          				`json:"items,omitempty"`               // Optional. The items to be added to the checkout.
 	Amount                	int             				`json:"amount,omitempty"`                        // Required if items are not provided. The total amount in cents.
 	Currency              	string          				`json:"currency,omitempty"`                      // Required if amount is provided. ISO currency code (e.g., "dzd").
 	PaymentMethod         	string          				`json:"payment_method,omitempty"`      // Optional. Payment method (e.g., "edahabia", "cib").
@@ -155,7 +155,7 @@ type CheckoutParams struct {
 // Create a new payment link 
 type CreatePaymentLinkParams struct {
 	Name                   string            				`json:"name"`                         // The name associated with the order.
-	Items                  []Items            				`json:"items"`                        // A list of items in the order.
+	Items                  []PItems            				`json:"items"`                        // A list of items in the order.
 	AfterCompletionMessage string            				`json:"after_completion_message"`     // A message displayed after order completion.
 	Locale                 string            				`json:"locale"`                       // The locale (e.g., "en", "fr").
 	PassFeesToCustomer     bool              				`json:"pass_fees_to_customer"`        // Indicates if fees are passed to the customer.
