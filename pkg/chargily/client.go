@@ -431,9 +431,9 @@ func (c *Client) GetAllPaymentLinks() (*RetrieveAll[PaymentLink], error) {
 
 
 // retrieve a payment link's items
-func (c *Client) GetPaymentLinkItems(productId string) (*RetrieveAll[ItemData], error) {
+func (c *Client) GetPaymentLinkItems(productId string) (*RetrieveAll[PItemsData], error) {
 
-    var items RetrieveAll[ItemData]
+    var items RetrieveAll[PItemsData]
     //send the request 
     err := c.rs.SendRequest("GET",  strings.Join([]string{c.endpoint, "payment-links/", productId , "/items"}, ""), nil, &items)
 
