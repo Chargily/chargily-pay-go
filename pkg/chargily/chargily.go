@@ -131,24 +131,25 @@ type UpdatePriceMetaDataParams struct {
 
 
 
-// the checkout param to create a checkout
+// CheckoutParams represents the parameters required to create a checkout.
 type CheckoutParams struct {
-	Items                  []Item                        `json:"items,omitempty"`           // The items to be added to the checkout.
-	Amount                  int                          `json:"amount,omitempty"`           // The total amount to be charged in cents.
-	Currency                string                       `json:"currency,omitempty"`         // The currency code (e.g., "dzd", "usd", "eur").
-	PaymentMethod           string                       `json:"payment_method,omitempty"`    // The payment method (e.g., "card", "cash").
-	SuccessURL              string                       `json:"success_url,omitempty"`      // The URL to redirect to after a successful checkout.
-	CustomerID              string                       `json:"customer_id,omitempty"`  // The ID of the customer to be associated with the checkout.
-	FailureURL              string                       `json:"failure_url,omitempty"`  // The URL to redirect to after a failed checkout.
-	WebhookEndpoint         string                       `json:"webhook_endpoint,omitempty"`  // The URL to send a webhook to after the checkout.
-	Description             string                       `json:"description,omitempty"`  // A description of the checkout.
-	Locale                  string                       `json:"locale,omitempty"`  // The locale (e.g., "en", "fr", "es").
-	ShippingAddress         string                       `json:"shipping_address,omitempty"`  // The shipping address to be associated with the checkout.
-	CollectShippingAddress  bool                         `json:"collect_shipping_address,omitempty"`  // Indicates whether the shipping address should be collected.
-	PercentageDiscount      int                          `json:"percentage_discount,omitempty"`  // The percentage discount to be applied to the checkout.
-	AmountDiscount          int                          `json:"amount_discount,omitempty"`  // The amount discount to be applied to the checkout in cents.
-	Metadata                map[string]any               `json:"metadata,omitempty"`  // Additional information about the checkout.
+	Items                 	[]Item          	`json:"items,omitempty"`               // Optional. The items to be added to the checkout.
+	Amount                	int             	`json:"amount,omitempty"`                        // Required if items are not provided. The total amount in cents.
+	Currency              	string          	`json:"currency,omitempty"`                      // Required if amount is provided. ISO currency code (e.g., "dzd").
+	PaymentMethod         	string          	`json:"payment_method,omitempty"`      // Optional. Payment method (e.g., "edahabia", "cib").
+	SuccessURL            	string          	`json:"success_url"`                   // Required. URL to redirect after successful payment.
+	CustomerID            	string          	`json:"customer_id,omitempty"`         // Optional. ID of the existing customer.
+	FailureURL            	string          	`json:"failure_url,omitempty"`         // Optional. URL to redirect after failed/canceled payment.
+	WebhookEndpoint       	string          	`json:"webhook_endpoint,omitempty"`    // Optional. URL to receive webhook events after checkout.
+	Description           	string          	`json:"description,omitempty"`         // Optional. Description of the checkout.
+	Locale                	string          	`json:"locale,omitempty"`              // Optional. Checkout page language (e.g., "en", "fr", "ar").
+	ShippingAddress       	string          	`json:"shipping_address,omitempty"`    // Optional. Customer's shipping address.
+	CollectShippingAddress 	bool           		`json:"collect_shipping_address,omitempty"` // Optional. Whether to collect the shipping address from the customer.
+	PercentageDiscount    	int             	`json:"percentage_discount,omitempty"` // Optional. Percentage discount, prohibited if amount discount is provided.
+	AmountDiscount        	int             	`json:"amount_discount,omitempty"`     // Optional. Amount discount in cents, prohibited if percentage discount is provided.
+	Metadata              	map[string]any  	`json:"metadata,omitempty"`            // Optional. Additional key-value pairs for extra checkout information.
 }
+
 
 
 // Create a new payment link 
@@ -185,9 +186,9 @@ type CreatePaymentLinkParams struct {
 
 // Balance represents the overall balance entity.
 type Balance struct {
-    Entity   string   `json:"entity"`   // The entity type (e.g., "balance")
-    LiveMode bool     `json:"livemode"` // Indicates whether the mode is live
-    Wallets  []Wallet `json:"wallets"`  // A slice of Wallet structs
+    Entity   				string   					`json:"entity"`   // The entity type (e.g., "balance")
+    LiveMode 				bool     					`json:"livemode"` // Indicates whether the mode is live
+    Wallets  				[]Wallet 					`json:"wallets"`  // A slice of Wallet structs
 }
 
 
@@ -271,34 +272,34 @@ type AllPricesResponse struct {
 
 // Checkout Object to be returned
 type Checkout struct {
-	ID                      string            `json:"id"`                          // The unique identifier of the checkout.
-	Entity                  string            `json:"entity"`                      // The entity type (e.g., "checkout").
-	Livemode                bool              `json:"livemode"`                    // Indicates whether the mode is live.
-	Amount                  int64             `json:"amount"`                      // The total amount to be charged in cents.
-	Currency                string            `json:"currency"`                    // The currency of the checkout (e.g., "dzd").
-	Fees                    int64             `json:"fees"`                        // The fees charged to the checkout.
-	FeesOnMerchant          int64             `json:"fees_on_merchant"`            // The fees charged to the merchant in cents.
-	FeesOnCustomer          int64             `json:"fees_on_customer"`            // The fees charged to the customer in cents.
-	PassFeesToCustomer      *bool             `json:"pass_fees_to_customer"`       // Indicates whether the fees should be passed to the customer. This can be null.
-	ChargilyPayFeesAllocation string           `json:"chargily_pay_fees_allocation"` // The allocation of fees to Chargily Pay.
-	Status                  string            `json:"status"`                      // The status of the checkout (e.g., "pending", "succeeded", "failed").
-	Locale                  string            `json:"locale"`                      // The locale (e.g., "en", "fr", "es").
-	Description             *string           `json:"description"`                 // A description of the checkout. This can be null.
-	Metadata                *map[string]any   `json:"metadata"`                    // Additional information about the checkout. This can be null.
-	SuccessURL              string            `json:"success_url"`                 // The URL to redirect to after a successful checkout.
-	FailureURL              string            `json:"failure_url"`                 // The URL to redirect to after a failed checkout.
-	WebhookEndpoint         *string           `json:"webhook_endpoint"`            // The URL to send a webhook to after the checkout. This can be null.
-	PaymentMethod           *string           `json:"payment_method"`              // The payment method (e.g., "card", "cash"). This can be null.
-	InvoiceID               *string           `json:"invoice_id"`                  // The ID of the invoice associated with the checkout. This can be null.
-	CustomerID              string            `json:"customer_id"`                 // The ID of the customer associated with the checkout.
-	PaymentLinkID           *string           `json:"payment_link_id"`             // The ID of the payment link associated with the checkout. This can be null.
-	CreatedAt               int64             `json:"created_at"`                  // The timestamp of when the checkout was created.
-	UpdatedAt               int64             `json:"updated_at"`                  // The timestamp of when the checkout was updated.
-	ShippingAddress         *string           `json:"shipping_address"`            // The shipping address to be associated with the checkout. This can be null.
-	CollectShippingAddress  int32             `json:"collect_shipping_address"`    // Indicates whether the shipping address should be collected.
-	Discount               	Discount		  `json:"discount"` // The discount applied to the checkout.
-	AmountWithoutDiscount   int64   		  `json:"amount_without_discount"`  // The amount without any discount.
-	CheckoutURL             string  		  `json:"checkout_url"`             // The URL to access the checkout page.
+	ID                      string            			  `json:"id"`                          // The unique identifier of the checkout.
+	Entity                  string            			  `json:"entity"`                      // The entity type (e.g., "checkout").
+	Livemode                bool              			  `json:"livemode"`                    // Indicates whether the mode is live.
+	Amount                  int64             			  `json:"amount"`                      // The total amount to be charged in cents.
+	Currency                string            			  `json:"currency"`                    // The currency of the checkout (e.g., "dzd").
+	Fees                    int64             			  `json:"fees"`                        // The fees charged to the checkout.
+	FeesOnMerchant          int64             			  `json:"fees_on_merchant"`            // The fees charged to the merchant in cents.
+	FeesOnCustomer          int64             			  `json:"fees_on_customer"`            // The fees charged to the customer in cents.
+	PassFeesToCustomer      *bool             			  `json:"pass_fees_to_customer"`       // Indicates whether the fees should be passed to the customer. This can be null.
+	ChargilyPayFeesAllocation string          			   `json:"chargily_pay_fees_allocation"` // The allocation of fees to Chargily Pay.
+	Status                  string            			  `json:"status"`                      // The status of the checkout (e.g., "pending", "succeeded", "failed").
+	Locale                  string            			  `json:"locale"`                      // The locale (e.g., "en", "fr", "es").
+	Description             *string           			  `json:"description"`                 // A description of the checkout. This can be null.
+	Metadata                *map[string]any   			  `json:"metadata"`                    // Additional information about the checkout. This can be null.
+	SuccessURL              string            			  `json:"success_url"`                 // The URL to redirect to after a successful checkout.
+	FailureURL              string            			  `json:"failure_url"`                 // The URL to redirect to after a failed checkout.
+	WebhookEndpoint         *string           			  `json:"webhook_endpoint"`            // The URL to send a webhook to after the checkout. This can be null.
+	PaymentMethod           *string           			  `json:"payment_method"`              // The payment method (e.g., "card", "cash"). This can be null.
+	InvoiceID               *string           			  `json:"invoice_id"`                  // The ID of the invoice associated with the checkout. This can be null.
+	CustomerID              string            			  `json:"customer_id"`                 // The ID of the customer associated with the checkout.
+	PaymentLinkID           *string           			  `json:"payment_link_id"`             // The ID of the payment link associated with the checkout. This can be null.
+	CreatedAt               int64             			  `json:"created_at"`                  // The timestamp of when the checkout was created.
+	UpdatedAt               int64             			  `json:"updated_at"`                  // The timestamp of when the checkout was updated.
+	ShippingAddress         *string           			  `json:"shipping_address"`            // The shipping address to be associated with the checkout. This can be null.
+	CollectShippingAddress  int32             			  `json:"collect_shipping_address"`    // Indicates whether the shipping address should be collected.
+	Discount               	Discount		  			  `json:"discount"` // The discount applied to the checkout.
+	AmountWithoutDiscount   int64   		  			  `json:"amount_without_discount"`  // The amount without any discount.
+	CheckoutURL             string  		  			  `json:"checkout_url"`             // The URL to access the checkout page.
 }
 
 
