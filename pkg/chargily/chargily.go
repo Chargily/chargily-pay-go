@@ -74,7 +74,7 @@ type ItemData struct {
 	Entity            	string      						  `json:"entity"`              // The entity type (e.g., "price").
 	Amount            	int         						  `json:"amount"`              // The amount for the item.
 	Quantity          	int         						  `json:"quantity"`            // The quantity of the item.
-	AdjustableQuantity	int       						  `json:"adjustable_quantity"` // Indicates whether the quantity is adjustable (converted from 0 or 1 to bool).
+	AdjustableQuantity	int       						  	  `json:"adjustable_quantity"` // Indicates whether the quantity is adjustable (converted from 0 or 1 to bool).
 	Currency          	string      						  `json:"currency"`            // The currency code (e.g., "dzd").
 	Metadata          	interface{} 						  `json:"metadata"`            // Metadata associated with the item.
 	CreatedAt         	int64       						  `json:"created_at"`          // Timestamp when the item was created.
@@ -97,57 +97,57 @@ type ItemData struct {
 
 // CreateCustomerParams represents the parameters for creating a customer.
 type CreateCustomerParams struct {
-	Name     			string            			`json:"name,omitempty"`     // The name of the customer.
-	Email    			string            			`json:"email,omitempty"`    // The email address of the customer.
-	Phone    			string            			`json:"phone,omitempty"`    // The phone number of the customer.
-	Address  			*Address          			`json:"address,omitempty"`  // The address of the customer.
-	Metadata 			map[string]any    			`json:"metadata,omitempty"`  // Additional info about the customer.
+	Name     			string            					`json:"name,omitempty"`     // The name of the customer.
+	Email    			string            					`json:"email,omitempty"`    // The email address of the customer.
+	Phone    			string            					`json:"phone,omitempty"`    // The phone number of the customer.
+	Address  			*Address          					`json:"address,omitempty"`  // The address of the customer.
+	Metadata 			map[string]any    					`json:"metadata,omitempty"`  // Additional info about the customer.
 }
 
 
 // price operations related structs
 type ProductPriceParams struct {
-	Amount                  int64                        `json:"amount"`          // The price amount in cents.
-	Currency                string                       `json:"currency"`         // The currency code (e.g., "dzd", "usd", "eur").
-	ProductID               string                       `json:"product_id"`      // The ID of the product to which the price applies.
-	Metadata                 map[string]any              `json:"metadata,omitempty"`  // Additional information about the price.
+	Amount                  int64                        	`json:"amount"`          // The price amount in cents.
+	Currency                string                       	`json:"currency"`         // The currency code (e.g., "dzd", "usd", "eur").
+	ProductID               string                       	`json:"product_id"`      // The ID of the product to which the price applies.
+	Metadata                 map[string]any              	`json:"metadata,omitempty"`  // Additional information about the price.
 }
 
 
 // Creating a new product params 
 type CreateProductParams struct {
-    Name                   string                        `json:"name,omitempty"`     // The name of the product.
-    Description            string                        `json:"description,omitempty"`  // The description of the product.
-    Images                 []string                      `json:"images,omitempty"`    // The URLs of images of the product, up to 8.
-    Metadata               map[string]any                `json:"metadata,omitempty"`  // A set of key-value pairs for additional information about the product.
+    Name                   string                        	`json:"name,omitempty"`     // The name of the product.
+    Description            string                        	`json:"description,omitempty"`  // The description of the product.
+    Images                 []string                      	`json:"images,omitempty"`    // The URLs of images of the product, up to 8.
+    Metadata               map[string]any                	`json:"metadata,omitempty"`  // A set of key-value pairs for additional information about the product.
 }
 
 
 
 //update PriceMetaData 
 type UpdatePriceMetaDataParams struct {
-    Metadata                 map[string]any              `json:"metadata"`  // Additional information about the price.
+    Metadata                 map[string]any              	`json:"metadata"`  // Additional information about the price.
 }
 
 
 
 // CheckoutParams represents the parameters required to create a checkout.
 type CheckoutParams struct {
-	Items                 	[]Item          	`json:"items,omitempty"`               // Optional. The items to be added to the checkout.
-	Amount                	int             	`json:"amount,omitempty"`                        // Required if items are not provided. The total amount in cents.
-	Currency              	string          	`json:"currency,omitempty"`                      // Required if amount is provided. ISO currency code (e.g., "dzd").
-	PaymentMethod         	string          	`json:"payment_method,omitempty"`      // Optional. Payment method (e.g., "edahabia", "cib").
-	SuccessURL            	string          	`json:"success_url"`                   // Required. URL to redirect after successful payment.
-	CustomerID            	string          	`json:"customer_id,omitempty"`         // Optional. ID of the existing customer.
-	FailureURL            	string          	`json:"failure_url,omitempty"`         // Optional. URL to redirect after failed/canceled payment.
-	WebhookEndpoint       	string          	`json:"webhook_endpoint,omitempty"`    // Optional. URL to receive webhook events after checkout.
-	Description           	string          	`json:"description,omitempty"`         // Optional. Description of the checkout.
-	Locale                	string          	`json:"locale,omitempty"`              // Optional. Checkout page language (e.g., "en", "fr", "ar").
-	ShippingAddress       	string          	`json:"shipping_address,omitempty"`    // Optional. Customer's shipping address.
-	CollectShippingAddress 	bool           		`json:"collect_shipping_address,omitempty"` // Optional. Whether to collect the shipping address from the customer.
-	PercentageDiscount    	int             	`json:"percentage_discount,omitempty"` // Optional. Percentage discount, prohibited if amount discount is provided.
-	AmountDiscount        	int             	`json:"amount_discount,omitempty"`     // Optional. Amount discount in cents, prohibited if percentage discount is provided.
-	Metadata              	map[string]any  	`json:"metadata,omitempty"`            // Optional. Additional key-value pairs for extra checkout information.
+	Items                 	[]Item          				`json:"items,omitempty"`               // Optional. The items to be added to the checkout.
+	Amount                	int             				`json:"amount,omitempty"`                        // Required if items are not provided. The total amount in cents.
+	Currency              	string          				`json:"currency,omitempty"`                      // Required if amount is provided. ISO currency code (e.g., "dzd").
+	PaymentMethod         	string          				`json:"payment_method,omitempty"`      // Optional. Payment method (e.g., "edahabia", "cib").
+	SuccessURL            	string          				`json:"success_url"`                   // Required. URL to redirect after successful payment.
+	CustomerID            	string          				`json:"customer_id,omitempty"`         // Optional. ID of the existing customer.
+	FailureURL            	string          				`json:"failure_url,omitempty"`         // Optional. URL to redirect after failed/canceled payment.
+	WebhookEndpoint       	string          				`json:"webhook_endpoint,omitempty"`    // Optional. URL to receive webhook events after checkout.
+	Description           	string          				`json:"description,omitempty"`         // Optional. Description of the checkout.
+	Locale                	string          				`json:"locale,omitempty"`              // Optional. Checkout page language (e.g., "en", "fr", "ar").
+	ShippingAddress       	string          				`json:"shipping_address,omitempty"`    // Optional. Customer's shipping address.
+	CollectShippingAddress 	bool           					`json:"collect_shipping_address,omitempty"` // Optional. Whether to collect the shipping address from the customer.
+	PercentageDiscount    	int             				`json:"percentage_discount,omitempty"` // Optional. Percentage discount, prohibited if amount discount is provided.
+	AmountDiscount        	int             				`json:"amount_discount,omitempty"`     // Optional. Amount discount in cents, prohibited if percentage discount is provided.
+	Metadata              	map[string]any  				`json:"metadata,omitempty"`            // Optional. Additional key-value pairs for extra checkout information.
 }
 
 
@@ -207,23 +207,6 @@ type Customer struct {
 }
 
 
-// AllCustomersResponse represents the retrieval of all customers
-type AllCustomersResponse struct {
-	Livemode                bool                         `json:"livemode"`
-	CurrentPage             int                          `json:"current_page"`
-	Data                    []Customer                   `json:"data"` 
-	FirstPageURL            string                       `json:"first_page_url"`
-	LastPage                int                          `json:"last_page"`
-	LastPageURL             string                       `json:"last_page_url"`
-	NextPageURL             *string                      `json:"next_page_url"` 
-	Path                    string                       `json:"path"`
-	PerPage                 int                          `json:"per_page"`
-	PrevPageURL             *string                      `json:"prev_page_url"` 
-	Total                   int                          `json:"total"`
-}
-
-
-
 // Product Object 
 type Product struct {
     ID                      string                       `json:"id"`            // The unique identifier of the product.
@@ -235,38 +218,6 @@ type Product struct {
     Metadata                map[string]any               `json:"metadata"`         // A set of key-value pairs for additional information about the product.
     CreatedAt               int64                        `json:"created_at"`       // The timestamp of when the product was created.
     UpdatedAt               int64                        `json:"updated_at"`       // The timestamp of when the product was updated.
-}
-
-
-// AllProductsResponse represents the response returned of all the products
-type AllProductsResponse struct {
-	Livemode                bool                         `json:"livemode"`
-	CurrentPage             int                          `json:"current_page"`
-	Data                    []Product                    `json:"data"` 
-	FirstPageURL            string                       `json:"first_page_url"`
-	LastPage                int                          `json:"last_page"`
-	LastPageURL             string                       `json:"last_page_url"`
-	NextPageURL             *string                      `json:"next_page_url"` 
-	Path                    string                       `json:"path"`
-	PerPage                 int                          `json:"per_page"`
-	PrevPageURL             *string                      `json:"prev_page_url"` 
-	Total                   int                          `json:"total"`
-}
-
-
-// AllPricesResponse represents the response returned of all the prices
-type AllPricesResponse struct {
-	Livemode                bool                         `json:"livemode"`	      
-	CurrentPage             int                          `json:"current_page"`
-	Data                    []ProductPrice               `json:"data"` 
-	FirstPageURL            string                       `json:"first_page_url"`
-	LastPage                int                          `json:"last_page"`
-	LastPageURL             string                       `json:"last_page_url"`
-	NextPageURL             *string                      `json:"next_page_url"` 
-	Path                    string                       `json:"path"`
-	PerPage                 int                          `json:"per_page"`
-	PrevPageURL             *string                      `json:"prev_page_url"` 
-	Total                   int                          `json:"total"`
 }
 
 
@@ -304,41 +255,6 @@ type Checkout struct {
 
 
 
-
-// AllCheckoutsResponse represents the response of all the checkouts
-type AllCheckoutsResponse struct {
-	Livemode                bool                         `json:"livemode"`	      
-	CurrentPage             int                          `json:"current_page"`
-	Data                    []Checkout                   `json:"data"` 
-	FirstPageURL            string                       `json:"first_page_url"`
-	LastPage                int                          `json:"last_page"`
-	LastPageURL             string                       `json:"last_page_url"`
-	NextPageURL             *string                      `json:"next_page_url"` 
-	Path                    string                       `json:"path"`
-	PerPage                 int                          `json:"per_page"`
-	PrevPageURL             *string                      `json:"prev_page_url"` 
-	Total                   int                          `json:"total"`
-}
-
-
-// all checkout's Items 
-type AllCheckoutItems struct {
-	Livemode     		    bool                          `json:"livemode"`          // Indicates whether the checkout is in live mode.
-	CurrentPage  		    int                           `json:"current_page"`      // The current page of results.
-	Data         		    []CheckoutItems                `json:"data"`              // A list of checkout items on the current page.
-	FirstPageURL 		    string                        `json:"first_page_url"`    // The URL for the first page.
-	LastPage     		    int                           `json:"last_page"`         // The last available page.
-	LastPageURL  		    string                        `json:"last_page_url"`     // The URL for the last page.
-	NextPageURL  		    *string                       `json:"next_page_url"`     // The URL for the next page, null if there is none.
-	Path         		    string                        `json:"path"`              // The base path for the pagination.
-	PerPage      		    int                           `json:"per_page"`          // The number of items per page.
-	PrevPageURL  		    *string                       `json:"prev_page_url"`     // The URL for the previous page, null if there is none.
-	Total        		    int                           `json:"total"`             // The total number of checkout items.
-}
-
-
-
-
 // Payment Links 
 type PaymentLink struct {
 	ID                     string  						  `json:"id"`                          // The unique identifier of the payment link.
@@ -357,12 +273,20 @@ type PaymentLink struct {
 }
 
 
+////////////////////////////////////////////////////////////////////
 
 
-type AllPaymentLinksResponse struct {
+
+
+//=================G GENERIC RESPONSES =========================//
+//////////////////////////////////////////////////////////////////
+
+
+// Generic response for retrieving all entries of any type
+type RetrieveAll[T any] struct {
 	Livemode                bool                         `json:"livemode"`
 	CurrentPage             int                          `json:"current_page"`
-	Data                    []PaymentLink                `json:"data"` 
+	Data                    []T                   		`json:"data"` 
 	FirstPageURL            string                       `json:"first_page_url"`
 	LastPage                int                          `json:"last_page"`
 	LastPageURL             string                       `json:"last_page_url"`
@@ -373,26 +297,4 @@ type AllPaymentLinksResponse struct {
 	Total                   int                          `json:"total"`
 }
 
-
-
-
-
-type ItemsResponse struct {
-	Livemode      	   bool   		  					`json:"livemode"`          // Indicates whether the mode is live.
-	CurrentPage   	   int    		  					`json:"current_page"`      // The current page number.
-	Data          	   []ItemData     					 `json:"data"`              // List of items in the current page.
-	FirstPageURL  	   string 		  					`json:"first_page_url"`    // URL of the first page.
-	LastPage      	   int    		  					`json:"last_page"`         // The last page number.
-	LastPageURL   	   string 		  					`json:"last_page_url"`     // URL of the last page.
-	NextPageURL   	   *string        					 `json:"next_page_url"`    // URL of the next page, or null.
-	Path          	   string 		  					`json:"path"`              // Path to the current resource.
-	PerPage       	   int    		  					`json:"per_page"`          // Number of items per page.
-	PrevPageURL   	   *string		  					`json:"prev_page_url"`    // URL of the previous page, or null.
-	Total         	   int    		  					`json:"total"`             // Total number of items.
-}
-
-
-
-////////////////////////////////////////////////////////////////////
-
-
+/////////////////////////////////////////////////////////////////
