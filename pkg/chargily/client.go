@@ -122,9 +122,9 @@ func (c *Client) DeleteCustomer(customerID string) error {
 
 
 // retrieve all customers ( an array of customers )
-func (c *Client) GetAllCustomers() (*AllCustomersResponse, error) {
+func (c *Client) GetAllCustomers() (*RetrieveAll[Customer], error) {
 
-    var customers AllCustomersResponse
+    var customers RetrieveAll[Customer]
     //send the request 
     err := c.rs.SendRequest("GET",  strings.Join([]string{c.endpoint, "customers"}, ""), nil, &customers)
 
@@ -188,9 +188,9 @@ func (c *Client) GetProduct(productId string) (*Product, error) {
 
 
 // retrieve all products 
-func (c *Client) GetAllProducts() (*AllProductsResponse, error) {
+func (c *Client) GetAllProducts() (*RetrieveAll[Product], error) {
 
-    var products AllProductsResponse
+    var products RetrieveAll[Product]
     //send the request 
     err := c.rs.SendRequest("GET",  strings.Join([]string{c.endpoint, "products"}, ""), nil, &products)
 
@@ -217,9 +217,9 @@ func (c *Client) DeleteProduct(productId string) error {
 
 
 // Retrieve a products's prices using its ID 
-func (c *Client) GetProductPrices(productId string) (*AllPricesResponse, error) {
+func (c *Client) GetProductPrices(productId string) (*RetrieveAll[ProductPrice], error) {
 
-    var prices AllPricesResponse
+    var prices RetrieveAll[ProductPrice]
     //send the request 
     err := c.rs.SendRequest("GET",  strings.Join([]string{c.endpoint, "products/", productId, "/prices"}, ""), nil, &prices)
 
@@ -277,9 +277,9 @@ func (c *Client) GetPrice(productId string) (*ProductPrice, error) {
 
 
 // retrieve a list of all prices available 
-func (c *Client) GetAllPrices() (*AllPricesResponse, error) {
+func (c *Client) GetAllPrices() (*RetrieveAll[ProductPrice], error) {
 
-    var prices AllPricesResponse
+    var prices RetrieveAll[ProductPrice]
     //send the request 
     err := c.rs.SendRequest("GET",  strings.Join([]string{c.endpoint, "prices"}, ""), nil, &prices)
 
@@ -324,9 +324,9 @@ func (c *Client) GetCheckout(checkoutId string) (*Checkout, error) {
 
 
 // retrieve all checkouts
-func (c *Client) GetAllCheckouts() (*AllCheckoutsResponse, error) {
+func (c *Client) GetAllCheckouts() (*RetrieveAll[Checkout], error) {
 
-    var checkouts AllCheckoutsResponse
+    var checkouts RetrieveAll[Checkout]
     //send the request 
     err := c.rs.SendRequest("GET",  strings.Join([]string{c.endpoint, "checkouts"}, ""), nil, &checkouts)
 
@@ -340,9 +340,9 @@ func (c *Client) GetAllCheckouts() (*AllCheckoutsResponse, error) {
 
 
 // retrieve a checkout's items
-func (c *Client) GetCheckoutItems(checkoutId string) (*AllCheckoutItems, error) {
+func (c *Client) GetCheckoutItems(checkoutId string) (*RetrieveAll[CheckoutItems], error) {
 
-    var items AllCheckoutItems
+    var items RetrieveAll[CheckoutItems]
     //send the request 
     err := c.rs.SendRequest("GET",  strings.Join([]string{c.endpoint, "checkouts/", checkoutId, "/items"}, ""), nil, &items)
 
@@ -415,9 +415,9 @@ func (c *Client) GetPaymentLink(paymentLinkId string) (*PaymentLink, error) {
 
 
 // retrieve all payment links
-func (c *Client) GetAllPaymentLinks() (*AllPaymentLinksResponse, error) {
+func (c *Client) GetAllPaymentLinks() (*RetrieveAll[PaymentLink], error) {
 
-    var links AllPaymentLinksResponse
+    var links RetrieveAll[PaymentLink]
     //send the request 
     err := c.rs.SendRequest("GET",  strings.Join([]string{c.endpoint, "payment-links"}, ""), nil, &links)
 
@@ -431,9 +431,9 @@ func (c *Client) GetAllPaymentLinks() (*AllPaymentLinksResponse, error) {
 
 
 // retrieve a payment link's items
-func (c *Client) GetPaymentLinkItems(productId string) (*ItemsResponse, error) {
+func (c *Client) GetPaymentLinkItems(productId string) (*RetrieveAll[ItemData], error) {
 
-    var items ItemsResponse
+    var items RetrieveAll[ItemData]
     //send the request 
     err := c.rs.SendRequest("GET",  strings.Join([]string{c.endpoint, "payment-links/", productId , "/items"}, ""), nil, &items)
 
