@@ -24,7 +24,7 @@ func main(){
 
 
 	// Create items to be added to the payment link
-	itemss := []chargily.Items{
+	itemss := []chargily.PItems{
 		{
 			Price:              "01j9k9m78jp18bdky07s0rxxtg",
 			Quantity:           2,
