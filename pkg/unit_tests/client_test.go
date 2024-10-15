@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"github.com/Chargily/chargily-pay-go/pkg/chargily"
+	"github.com/Chargily/chargily-pay-go/pkg/chargily/utils"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 )
@@ -22,7 +23,7 @@ func TestNewClient(t *testing.T) {
 	}{
 		{"Valid Prod Client", "test-api-key", "prod", nil},
 		{"Valid Test Client", "test-api-key", "test", nil},
-		{"Invalid Mode", "test-api-key", "invalid", chargily.ErrInvalidMode},
+		{"Invalid Mode", "test-api-key", "invalid", utils.ErrInvalidMode},
 	}
 
 	for _, tt := range tests {

@@ -1,4 +1,4 @@
-package chargily
+package utils
 
 import (
 	"bytes"
