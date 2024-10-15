@@ -1,0 +1,47 @@
+# Binaries for programs and plugins
+*.exe
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+# Test coverage files
+*.cover
+*.cov
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+*.test
+
+# Dependency directories (for vendored dependencies, often used in development)
+vendor/
+
+# Go build artifacts
+bin/
+build/
+dist/
+
+# Compiled object files
+*.o
+*.a
+
+# Logs and temporary files
+*.log
+*.tmp
+*.swp
+
+# IDE and editor configurations
+.vscode/
+.idea/
+*.iml
+
+# macOS files
+.DS_Store
+
+# Docker-related files
+docker-compose.override.yml
+
+# Environment variable files
+.env
+.env.*
