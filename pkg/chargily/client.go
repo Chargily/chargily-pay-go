@@ -2,6 +2,8 @@ package chargily
 
 import (
 	"strings"
+
+	"github.com/Chargily/chargily-pay-go/pkg/models"
 )
 
 // Client is the structure that holds the API key , the endpoint for the Chargily API and the development mode.
@@ -46,9 +48,9 @@ func NewClient(apiKey , mode string) (*Client, error) {
 
 
 //retrieve the balance example 
-func (c *Client) GetBalance() (*Balance, error) {
+func (c *Client) GetBalance() (*models.Balance, error) {
 
-    var balance Balance
+    var balance models.Balance
     //send the request 
     err := c.rs.SendRequest("GET",  strings.Join([]string{c.endpoint, "balance"}, ""), nil, &balance)
 
@@ -64,9 +66,9 @@ func (c *Client) GetBalance() (*Balance, error) {
 //=========== CUSTOMERS AREA ==============//
 
 // create a new customer
-func (c *Client) CreateCustomer(customer *CreateCustomerParams) (*Customer, error){
+func (c *Client) CreateCustomer(customer *models.CreateCustomerParams) (*models.Customer, error){
 
-    var customerResp Customer
+    var customerResp models.Customer
     //create new customer request with the customer data
     err := c.rs.SendRequest("POST",  strings.Join([]string{c.endpoint, "customers"}, ""), customer, &customerResp)
 
@@ -79,9 +81,9 @@ func (c *Client) CreateCustomer(customer *CreateCustomerParams) (*Customer, erro
 
 
 // update the customer
-func (c *Client) UpdateCustomer(customerID string, customer *CreateCustomerParams) (*Customer, error){
+func (c *Client) UpdateCustomer(customerID string, customer *models.CreateCustomerParams) (*models.Customer, error){
 
-    var customerResp Customer
+    var customerResp models.Customer
     //update the customer data request with the new updated customer data
     err := c.rs.SendRequest("POST",  strings.Join([]string{c.endpoint, "customers/", customerID}, ""), customer, &customerResp)
 
@@ -93,9 +95,9 @@ func (c *Client) UpdateCustomer(customerID string, customer *CreateCustomerParam
 }
 
 // retrieve a costumer
-func (c *Client) GetCustomer(customerID string) (*Customer, error) {
+func (c *Client) GetCustomer(customerID string) (*models.Customer, error) {
 
-    var customer Customer
+    var customer models.Customer
     //send the request 
     err := c.rs.SendRequest("GET",  strings.Join([]string{c.endpoint, "customers/",customerID }, ""), nil, &customer)
 
@@ -122,9 +124,9 @@ func (c *Client) DeleteCustomer(customerID string) error {
 
 
 // retrieve all customers ( an array of customers )
-func (c *Client) GetAllCustomers() (*RetrieveAll[Customer], error) {
+func (c *Client) GetAllCustomers() (*models.RetrieveAll[models.Customer], error) {
 
-    var customers RetrieveAll[Customer]
+    var customers models.RetrieveAll[models.Customer]
     //send the request 
     err := c.rs.SendRequest("GET",  strings.Join([]string{c.endpoint, "customers"}, ""), nil, &customers)
 
@@ -143,9 +145,9 @@ func (c *Client) GetAllCustomers() (*RetrieveAll[Customer], error) {
 
 
 //create a new product
-func (c *Client) CreateProduct(product *CreateProductParams) (*Product, error){
+func (c *Client) CreateProduct(product *models.CreateProductParams) (*models.Product, error){
 
-    var productResp Product
+    var productResp models.Product
     //create new product request with the product data
     err := c.rs.SendRequest("POST",  strings.Join([]string{c.endpoint, "products"}, ""), product, &productResp)
 
@@ -158,8 +160,8 @@ func (c *Client) CreateProduct(product *CreateProductParams) (*Product, error){
 
 
 // Update the product with it's unique ID
-func (c *Client) UpdateProduct(productId string,product *CreateProductParams) (*Product, error){
-    var productResp Product
+func (c *Client) UpdateProduct(productId string,product *models.CreateProductParams) (*models.Product, error){
+    var productResp models.Product
 
     //update existing product request with the new product data
     err := c.rs.SendRequest("POST",  strings.Join([]string{c.endpoint, "products/",productId}, ""), product, &productResp)
@@ -173,9 +175,9 @@ func (c *Client) UpdateProduct(productId string,product *CreateProductParams) (*
 
 
 //retrieve a product using its unique ID
-func (c *Client) GetProduct(productId string) (*Product, error) {
+func (c *Client) GetProduct(productId string) (*models.Product, error) {
 
-    var product Product
+    var product models.Product
     //send the request 
     err := c.rs.SendRequest("GET",  strings.Join([]string{c.endpoint, "products/", productId }, ""), nil, &product)
 
@@ -188,9 +190,9 @@ func (c *Client) GetProduct(productId string) (*Product, error) {
 
 
 // retrieve all products 
-func (c *Client) GetAllProducts() (*RetrieveAll[Product], error) {
+func (c *Client) GetAllProducts() (*models.RetrieveAll[models.Product], error) {
 
-    var products RetrieveAll[Product]
+    var products models.RetrieveAll[models.Product]
     //send the request 
     err := c.rs.SendRequest("GET",  strings.Join([]string{c.endpoint, "products"}, ""), nil, &products)
 
@@ -217,9 +219,9 @@ func (c *Client) DeleteProduct(productId string) error {
 
 
 // Retrieve a products's prices using its ID 
-func (c *Client) GetProductPrices(productId string) (*RetrieveAll[ProductPrice], error) {
+func (c *Client) GetProductPrices(productId string) (*models.RetrieveAll[models.ProductPrice], error) {
 
-    var prices RetrieveAll[ProductPrice]
+    var prices models.RetrieveAll[models.ProductPrice]
     //send the request 
     err := c.rs.SendRequest("GET",  strings.Join([]string{c.endpoint, "products/", productId, "/prices"}, ""), nil, &prices)
 
@@ -233,8 +235,8 @@ func (c *Client) GetProductPrices(productId string) (*RetrieveAll[ProductPrice],
 
 //============PRICES AREA ==============//
 //Create Price of a product for a specific product
-func (c *Client) CreatePrice(productPrice  * ProductPriceParams) (*ProductPrice, error) {
-    var price ProductPrice
+func (c *Client) CreatePrice(productPrice  * models.ProductPriceParams) (*models.ProductPrice, error) {
+    var price models.ProductPrice
     //send the request 
     err := c.rs.SendRequest("POST",  strings.Join([]string{c.endpoint, "prices"}, ""), productPrice, &price)
 
@@ -247,8 +249,8 @@ func (c *Client) CreatePrice(productPrice  * ProductPriceParams) (*ProductPrice,
 
 
 // update the product price data (not the price itself as mentioned in the docs of Chargily) for a specific product
-func (c *Client) UpdatePrice(productId string, Data * UpdatePriceMetaDataParams ) (*ProductPrice, error) {
-    var price ProductPrice
+func (c *Client) UpdatePrice(productId string, Data * models.UpdatePriceMetaDataParams ) (*models.ProductPrice, error) {
+    var price models.ProductPrice
     //send the request 
 
     err := c.rs.SendRequest("POST",  strings.Join([]string{c.endpoint, "prices/", productId}, ""), Data , &price)
@@ -262,9 +264,9 @@ func (c *Client) UpdatePrice(productId string, Data * UpdatePriceMetaDataParams 
 
 
 // retrieve a price 
-func (c *Client) GetPrice(productId string) (*ProductPrice, error) {
+func (c *Client) GetPrice(productId string) (*models.ProductPrice, error) {
 
-    var price ProductPrice
+    var price models.ProductPrice
     //send the request 
     err := c.rs.SendRequest("GET",  strings.Join([]string{c.endpoint, "prices/", productId }, ""), nil, &price)
 
@@ -277,9 +279,9 @@ func (c *Client) GetPrice(productId string) (*ProductPrice, error) {
 
 
 // retrieve a list of all prices available 
-func (c *Client) GetAllPrices() (*RetrieveAll[ProductPrice], error) {
+func (c *Client) GetAllPrices() (*models.RetrieveAll[models.ProductPrice], error) {
 
-    var prices RetrieveAll[ProductPrice]
+    var prices models.RetrieveAll[models.ProductPrice]
     //send the request 
     err := c.rs.SendRequest("GET",  strings.Join([]string{c.endpoint, "prices"}, ""), nil, &prices)
 
@@ -295,8 +297,8 @@ func (c *Client) GetAllPrices() (*RetrieveAll[ProductPrice], error) {
 //============ CHECKOUT FUNCTIONALITIES =================// 
 
 //create a checkout 
-func (c *Client) CreateCheckout(checkout *CheckoutParams) (*Checkout, error) {
-    var checkoutResp Checkout
+func (c *Client) CreateCheckout(checkout *models.CheckoutParams) (*models.Checkout, error) {
+    var checkoutResp models.Checkout
     //send the request 
     err := c.rs.SendRequest("POST",  strings.Join([]string{c.endpoint, "checkouts"}, ""), checkout, &checkoutResp)
 
@@ -309,9 +311,9 @@ func (c *Client) CreateCheckout(checkout *CheckoutParams) (*Checkout, error) {
 
 
 // retrieve a checkout
-func (c *Client) GetCheckout(checkoutId string) (*Checkout, error) {
+func (c *Client) GetCheckout(checkoutId string) (*models.Checkout, error) {
 
-    var checkout Checkout
+    var checkout models.Checkout
     //send the request 
     err := c.rs.SendRequest("GET",  strings.Join([]string{c.endpoint, "checkouts/", checkoutId }, ""), nil, &checkout)
 
@@ -324,9 +326,9 @@ func (c *Client) GetCheckout(checkoutId string) (*Checkout, error) {
 
 
 // retrieve all checkouts
-func (c *Client) GetAllCheckouts() (*RetrieveAll[Checkout], error) {
+func (c *Client) GetAllCheckouts() (*models.RetrieveAll[models.Checkout], error) {
 
-    var checkouts RetrieveAll[Checkout]
+    var checkouts models.RetrieveAll[models.Checkout]
     //send the request 
     err := c.rs.SendRequest("GET",  strings.Join([]string{c.endpoint, "checkouts"}, ""), nil, &checkouts)
 
@@ -340,9 +342,9 @@ func (c *Client) GetAllCheckouts() (*RetrieveAll[Checkout], error) {
 
 
 // retrieve a checkout's items
-func (c *Client) GetCheckoutItems(checkoutId string) (*RetrieveAll[CheckoutItems], error) {
+func (c *Client) GetCheckoutItems(checkoutId string) (*models.RetrieveAll[models.CheckoutItems], error) {
 
-    var items RetrieveAll[CheckoutItems]
+    var items models.RetrieveAll[models.CheckoutItems]
     //send the request 
     err := c.rs.SendRequest("GET",  strings.Join([]string{c.endpoint, "checkouts/", checkoutId, "/items"}, ""), nil, &items)
 
@@ -355,10 +357,10 @@ func (c *Client) GetCheckoutItems(checkoutId string) (*RetrieveAll[CheckoutItems
 
 
 // expires a checkout 
-func (c *Client) ExpireCheckout(checkoutId string) (*Checkout ,error) {
+func (c *Client) ExpireCheckout(checkoutId string) (*models.Checkout ,error) {
 
     //send the request 
-    var checkout Checkout
+    var checkout models.Checkout
     err := c.rs.SendRequest("POST",  strings.Join([]string{c.endpoint, "checkouts/", checkoutId, "/expire"}, ""), nil, &checkout)
 
     if err!= nil {
@@ -373,8 +375,8 @@ func (c *Client) ExpireCheckout(checkoutId string) (*Checkout ,error) {
 //================== PAYMENT LINKS =====================//
 
 //create payment link
-func (c *Client) CreatePaymentLink(paymentLink *CreatePaymentLinkParams) (*PaymentLink, error) {
-    var link PaymentLink
+func (c *Client) CreatePaymentLink(paymentLink *models.CreatePaymentLinkParams) (*models.PaymentLink, error) {
+    var link models.PaymentLink
     //send the request 
     err := c.rs.SendRequest("POST",  strings.Join([]string{c.endpoint, "payment-links"}, ""), paymentLink, &link)
 
@@ -386,8 +388,8 @@ func (c *Client) CreatePaymentLink(paymentLink *CreatePaymentLinkParams) (*Payme
 }
 
 // update a Payment Link
-func (c *Client) UpdatePaymentLink(paymentLinkId string, paymentLink *CreatePaymentLinkParams) (*PaymentLink, error) {
-    var link PaymentLink
+func (c *Client) UpdatePaymentLink(paymentLinkId string, paymentLink *models.CreatePaymentLinkParams) (*models.PaymentLink, error) {
+    var link models.PaymentLink
     //send the request 
     err := c.rs.SendRequest("POST",  strings.Join([]string{c.endpoint, "payment-links/", paymentLinkId}, ""), paymentLink, &link)
 
@@ -400,9 +402,9 @@ func (c *Client) UpdatePaymentLink(paymentLinkId string, paymentLink *CreatePaym
 
 
 // retrieve a payment link
-func (c *Client) GetPaymentLink(paymentLinkId string) (*PaymentLink, error) {
+func (c *Client) GetPaymentLink(paymentLinkId string) (*models.PaymentLink, error) {
 
-    var link PaymentLink
+    var link models.PaymentLink
     //send the request 
     err := c.rs.SendRequest("GET",  strings.Join([]string{c.endpoint, "payment-links/", paymentLinkId }, ""), nil, &link)
 
@@ -415,9 +417,9 @@ func (c *Client) GetPaymentLink(paymentLinkId string) (*PaymentLink, error) {
 
 
 // retrieve all payment links
-func (c *Client) GetAllPaymentLinks() (*RetrieveAll[PaymentLink], error) {
+func (c *Client) GetAllPaymentLinks() (*models.RetrieveAll[models.PaymentLink], error) {
 
-    var links RetrieveAll[PaymentLink]
+    var links models.RetrieveAll[models.PaymentLink]
     //send the request 
     err := c.rs.SendRequest("GET",  strings.Join([]string{c.endpoint, "payment-links"}, ""), nil, &links)
 
@@ -431,9 +433,9 @@ func (c *Client) GetAllPaymentLinks() (*RetrieveAll[PaymentLink], error) {
 
 
 // retrieve a payment link's items
-func (c *Client) GetPaymentLinkItems(productId string) (*RetrieveAll[PItemsData], error) {
+func (c *Client) GetPaymentLinkItems(productId string) (*models.RetrieveAll[models.PItemsData], error) {
 
-    var items RetrieveAll[PItemsData]
+    var items models.RetrieveAll[models.PItemsData]
     //send the request 
     err := c.rs.SendRequest("GET",  strings.Join([]string{c.endpoint, "payment-links/", productId , "/items"}, ""), nil, &items)
 
