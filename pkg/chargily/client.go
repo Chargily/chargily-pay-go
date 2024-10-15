@@ -3,6 +3,7 @@ package chargily
 import (
 	"strings"
 
+	"github.com/Chargily/chargily-pay-go/pkg/chargily/utils"
 	"github.com/Chargily/chargily-pay-go/pkg/models"
 )
 
@@ -10,7 +11,7 @@ import (
 type Client struct {
     apiKey   		string
     endpoint 		string
-    rs              RequestSenderI // rs: stands for RequestSender and used to send custom http requests
+    rs              utils.RequestSenderI // rs: stands for RequestSender and used to send custom http requests
 	mode            Mode
 }
 
@@ -29,12 +30,12 @@ func NewClient(apiKey , mode string) (*Client, error) {
     } else if mode == "test" {
         api_baseUrl = TestAPIBaseUrl
     } else {
-        return nil, ErrInvalidMode
+        return nil, utils.ErrInvalidMode
     }
 
 
     //new request sender 
-    requestSender := NewRequestSender(apiKey)
+    requestSender := utils.NewRequestSender(apiKey)
     
     //return the client with it's configurations
     return &Client{
