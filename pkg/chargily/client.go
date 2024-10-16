@@ -16,6 +16,7 @@ type Client struct {
     Products        *Products
     PaymentLinks    *PaymentLinks
     Checkouts       *Checkouts
+    Webhook        *Webhook
 }
 
 
@@ -54,6 +55,7 @@ func NewClient(apiKey , mode string) (*Client, error) {
     client.Products =    &Products{client: client}
     client.PaymentLinks = &PaymentLinks{client: client}
     client.Checkouts =   &Checkouts{client: client}
+    client.Webhook = &Webhook{client: client}
 
     return client, nil
 }
