@@ -7,16 +7,16 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Chargily/chargily-pay-go/pkg/chargily"
+	"github.com/Chargily/chargily-pay-go/pkg/chargily/utils"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestNewRequestSender(t *testing.T) {
 	apiKey := "test_api_key"
-	rs := chargily.NewRequestSender(apiKey)
+	rs := utils.NewRequestSender(apiKey)
 
 	assert.NotNil(t, rs)
-	assert.IsType(t, &chargily.RequestSender{}, rs)
+	assert.IsType(t, &utils.RequestSender{}, rs)
 	
 	// Type assertion to access the unexported field
 	//concreteRS, ok := rs.(*chargily.RequestSender)
@@ -49,7 +49,7 @@ func TestSendRequest(t *testing.T) {
 	defer server.Close()
 
 	// Create RequestSender
-	rs := chargily.NewRequestSender("test_api_key")
+	rs := utils.NewRequestSender("test_api_key")
 
 	// Prepare request body and result
 	requestBody := map[string]string{"test_key": "test_value"}
@@ -71,7 +71,7 @@ func TestSendRequestError(t *testing.T) {
 	defer server.Close()
 
 	// Create RequestSender
-	rs := chargily.NewRequestSender("test_api_key")
+	rs := utils.NewRequestSender("test_api_key")
 
 	// Send request
 	var result map[string]string
@@ -90,7 +90,7 @@ func TestSendRequestTimeout(t *testing.T) {
 	defer server.Close()
 
 	// Create RequestSender
-	rs := chargily.NewRequestSender("test_api_key")
+	rs := utils.NewRequestSender("test_api_key")
 
 	// Send request
 	var result map[string]string
